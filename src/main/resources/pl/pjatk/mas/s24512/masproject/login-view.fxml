@@ -15,6 +15,7 @@
    <TextField fx:id="loginField" />
    <Label fx:id="passLabel" text="Password" />
    <PasswordField fx:id="passField" />
-   <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginButtonClick" text="Login" />
+   <Button fx:id="loginButton" mnemonicParsing="false" onAction="#switchToLoggedOnScene" text="Login" />
    <Label fx:id="infoLabel" text="Enter login and password." />
+   <Button fx:id="SkipButton" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#onSkipButtonClick" text="Skip" />
 </VBox>
