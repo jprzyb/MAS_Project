@@ -1,7 +1,6 @@
 package pl.pjatk.mas.s24512.masproject;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,11 +10,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import pl.pjatk.mas.s24512.masproject.BussinessUtils.Employee;
 import pl.pjatk.mas.s24512.masproject.LoginUtils.Login;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static pl.pjatk.mas.s24512.masproject.LoginUtils.Login.APPROVE_LOGIN_MSG;
 
@@ -32,7 +31,7 @@ public class LoginController {
     @FXML
     protected void onSkipButtonClick(ActionEvent event) throws IOException {
         Util.setEmployeeLoggedOn(new Employee(0, "admin", "admin", "admin", "admin"));
-        root = FXMLLoader.load(getClass().getResource("main-view.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view-fixed.fxml")));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -49,7 +48,7 @@ public class LoginController {
             infoLabel.setText("Enter a password!");
         }else if(Login.tryToLogin(loginField.getText(), passField.getText()).equals(APPROVE_LOGIN_MSG)){
             infoLabel.setText(Login.tryToLogin(loginField.getText(), passField.getText()));
-            root = FXMLLoader.load(getClass().getResource("main-view.fxml"));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view-fixed.fxml")));
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
