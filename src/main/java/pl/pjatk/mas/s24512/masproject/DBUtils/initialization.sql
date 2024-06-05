@@ -1,54 +1,60 @@
+-- Wyłączenie ograniczeń kluczy obcych
+EXEC sp_MSforeachtable @command1="ALTER TABLE ? NOCHECK CONSTRAINT ALL";
+
+-- Usuwanie wszystkich tabel
+EXEC sp_MSforeachtable @command1="DROP TABLE ?";
+
 -- Creating Employee table
 CREATE TABLE Employee (
-    id NVARCHAR(50) PRIMARY KEY,
-    firstName NVARCHAR(50) NOT NULL,
-    lastName NVARCHAR(50) NOT NULL,
-    login NVARCHAR(50) NOT NULL UNIQUE,
-    password NVARCHAR(256) NOT NULL,
-    birthDate DATE NOT NULL,
-    employmentDate DATE NOT NULL,
-    salary DECIMAL(18, 2) NOT NULL,
-    managerId NVARCHAR(50)
+                          id NVARCHAR(50) PRIMARY KEY,
+                          firstName NVARCHAR(50) NOT NULL,
+                          lastName NVARCHAR(50) NOT NULL,
+                          login NVARCHAR(50) NOT NULL UNIQUE,
+                          password NVARCHAR(256) NOT NULL,
+                          birthDate DATE NOT NULL,
+                          employmentDate DATE NOT NULL,
+                          salary DECIMAL(18, 2) NOT NULL,
+                          managerId NVARCHAR(50)
 );
 
 -- Data insertion to Employee
-INSERT INTO Employee (id, firstName, lastName, login, password, birthDate, employmentDate, salary)
+INSERT INTO Employee (id, firstName, lastName, login, password, birthDate, employmentDate, salary, managerId)
 VALUES
 --     planners
-('beb99b51-cf72-47a2-aff0-24dc4c17cfe8', 'John', 'Doe', 'johdoe0', 'password123', '1980-05-15', '2010-06-01', 60000.00, 'bc6b671a-1978-4ba1-91ff-0e7c98eaff8d'),
-('c0edda08-6be2-46a2-b49d-9e891dd0327a', 'Jane', 'Smith', 'jansmi0', 'password456', '1985-07-20', '2012-09-15', 65000.00, 'bc6b671a-1978-4ba1-91ff-0e7c98eaff8d'),
-('46e34848-f01a-4b54-8aa6-5d64a9431982', 'Alice', 'Johnson', 'alijoh0', 'password789', '1990-11-30', '2015-03-25', 70000.00, 'bc6b671a-1978-4ba1-91ff-0e7c98eaff8d'),
+('beb99b51-cf72-47a2-aff0-24dc4c17cfe8', 'John', 'Doe', 'johdoe0', 'a', '1980-05-15', '2010-06-01', 60000.00, 'bc6b671a-1978-4ba1-91ff-0e7c98eaff8d'),
+('c0edda08-6be2-46a2-b49d-9e891dd0327a', 'Jane', 'Smith', 'jansmi0', 'a', '1985-07-20', '2012-09-15', 65000.00, 'bc6b671a-1978-4ba1-91ff-0e7c98eaff8d'),
+('46e34848-f01a-4b54-8aa6-5d64a9431982', 'Alice', 'Johnson', 'alijoh0', 'a', '1990-11-30', '2015-03-25', 70000.00, 'bc6b671a-1978-4ba1-91ff-0e7c98eaff8d'),
 --     planner manager
-    ('bc6b671a-1978-4ba1-91ff-0e7c98eaff8d', 'Samantha', 'Johnson', 'samjoh0', 'password321', '1983-06-08', '2009-10-30', 58000.00, NULL),
+('bc6b671a-1978-4ba1-91ff-0e7c98eaff8d', 'Samantha', 'Johnson', 'samjoh0', 'a', '1983-06-08', '2009-10-30', 58000.00, NULL),
 --     traffics
-    ('9ff2c4d0-17bc-4f10-9f3b-9f65d547f49b', 'Michael', 'Taylor', 'mictay0', 'password987', '1986-04-03', '2017-05-20', 72000.00, 'e24b34c1-80f4-423f-b042-e3a2c19f4d81'),
-    ('83c3a964-b94b-4d67-96e6-d01239946f7d', 'Jane', 'Smith', 'jansmi0', 'password456', '1985-07-20', '2012-09-15', 65000.00, 'e24b34c1-80f4-423f-b042-e3a2c19f4d81'),
-    ('7fee0d2e-751b-449e-b6f8-491a2210dd1d', 'Alice', 'Johnson', 'alijoh0', 'password789', '1990-11-30', '2015-03-25', 70000.00, 'e5bbf396-6e7b-4e58-9f69-b5d6a6dd5b6b'),
+('9ff2c4d0-17bc-4f10-9f3b-9f65d547f49b', 'Michael', 'Taylor', 'mictay0', 'a', '1986-04-03', '2017-05-20', 72000.00, 'e24b34c1-80f4-423f-b042-e3a2c19f4d81'),
+('83c3a964-b94b-4d67-96e6-d01239946f7d', 'Jane', 'Smith', 'jansmi1', 'a', '1985-07-20', '2012-09-15', 65000.00, 'e24b34c1-80f4-423f-b042-e3a2c19f4d81'),
+('7fee0d2e-751b-449e-b6f8-491a2210dd1d', 'Alice', 'Johnson', 'alijoh1', 'a', '1990-11-30', '2015-03-25', 70000.00, 'e5bbf396-6e7b-4e58-9f69-b5d6a6dd5b6b'),
 --     traffic manager
-    ('e24b34c1-80f4-423f-b042-e3a2c19f4d81', 'Bob', 'Brown', 'bobbro0', 'password101', '1992-03-10', '2018-08-10', 55000.00, NULL),
+('e24b34c1-80f4-423f-b042-e3a2c19f4d81', 'Bob', 'Brown', 'bobbro0', 'a', '1992-03-10', '2018-08-10', 55000.00, NULL),
 --     traffic AIO
-    ('e5bbf396-6e7b-4e58-9f69-b5d6a6dd5b6b', 'Sarah', 'Anderson', 'sarand0', 'password246', '1994-08-12', '2016-11-25', 62000.00, NULL),
+('e5bbf396-6e7b-4e58-9f69-b5d6a6dd5b6b', 'Sarah', 'Anderson', 'sarand0', 'a', '1994-08-12', '2016-11-25', 62000.00, NULL),
 --     Designer
-    ('7cb68ec3-d76a-4314-8e88-4a3c4b4eab64', 'Christopher', 'Wilson', 'chrwil0', 'password753', '1989-02-28', '2013-07-15', 68000.00, NULL),
+('7cb68ec3-d76a-4314-8e88-4a3c4b4eab64', 'Christopher', 'Wilson', 'chrwil0', 'a', '1989-02-28', '2013-07-15', 68000.00, NULL),
 --     Campaign accountant
-    ('b3a1f73b-c90a-4dbd-b729-4d1f166982fc', 'Jessica', 'Martinez', 'jesmar0', 'password159', '1997-05-20', '2019-09-08', 58000.00, NULL),
+('b3a1f73b-c90a-4dbd-b729-4d1f166982fc', 'Jessica', 'Martinez', 'jesmar0', 'a', '1997-05-20', '2019-09-08', 58000.00, NULL),
 --     Company accountant
-    ('9327e2d3-8920-4841-95c2-fc9200b748e8', 'Matthew', 'Rodriguez', 'matrod0', 'password852', '1990-11-15', '2012-04-30', 72000.00, NULL),
+('9327e2d3-8920-4841-95c2-fc9200b748e8', 'Matthew', 'Rodriguez', 'matrod0', 'a', '1990-11-15', '2012-04-30', 72000.00, NULL),
 --     Company/Campaign accountant
-('28a91aa2-8100-4c18-91e2-7e5d6761e013', 'Amanda', 'Harris', 'amahar0', 'password753', '1993-10-05', '2015-02-20', 65000.00, NULL);
+('28a91aa2-8100-4c18-91e2-7e5d6761e013', 'Amanda', 'Harris', 'amahar0', 'a', '1993-10-05', '2015-02-20', 65000.00, NULL);
 
+SELECT * FROM Employee
 
-
--- Creating Plan Table
-CREATE TABLE Plan (
-    id NVARCHAR(50) PRIMARY KEY,
-    estimatedRate INT NOT NULL,
-    target NVARCHAR(100) NOT NULL,
-    communicationChannel NVCHAR(50) NOT NULL
+-- Creating CampaignPlan Table
+CREATE TABLE CampaignPlan (
+                              id NVARCHAR(50) PRIMARY KEY,
+                              estimatedRate INT NOT NULL,
+                              target NVARCHAR(100) NOT NULL,
+                              communicationChannel NVARCHAR(50) NOT NULL
 );
 
--- Data insertion to Plan
-INSERT INTO Plan (id, estimatedRate, target, communicationChannel)
+-- Data insertion to CampaignPlan
+INSERT INTO CampaignPlan (id, estimatedRate, target, communicationChannel)
 VALUES
     ('4524ae45-e569-433a-8ab6-610b828d9e0b', 100, 'Rolnicy', 'EMAIL'),
     ('5c34a3c0-37ae-413e-9b16-98ffeec262ee', 150, 'Gracze', 'SMS'),
@@ -150,12 +156,12 @@ VALUES
 
 -- Creating Client Table
 CREATE TABLE Client (
-    id NVARCHAR(50) PRIMARY KEY,
-    firstName NVARCHAR(50) NOT NULL,
-    lastName NVARCHAR(50) NOT NULL,
-    emailAddress NVARCHAR(100) NOT NULL,
-    phoneNumber NVARCHAR(20) NOT NULL,
-    companyId NVARCHAR(50) NOT NULL
+                        id NVARCHAR(50) PRIMARY KEY,
+                        firstName NVARCHAR(50) NOT NULL,
+                        lastName NVARCHAR(50) NOT NULL,
+                        emailAddress NVARCHAR(100) NOT NULL,
+                        phoneNumber NVARCHAR(20) NOT NULL,
+                        companyId NVARCHAR(50) NOT NULL
 );
 
 -- Data insertion to Client
@@ -168,11 +174,11 @@ VALUES
 
 -- Creating Company Table
 CREATE TABLE Company (
-    id NVARCHAR(50) PRIMARY KEY,
-    name NVARCHAR(100) NOT NULL,
-    address NVARCHAR(255) NOT NULL,
-    accountNumber NVARCHAR(20) NOT NULL,
-    isRegular VARCHAR(50) NOT NULL
+                         id NVARCHAR(50) PRIMARY KEY,
+                         name NVARCHAR(100) NOT NULL,
+                         address NVARCHAR(255) NOT NULL,
+                         accountNumber NVARCHAR(20) NOT NULL,
+                         isRegular VARCHAR(50) NOT NULL
 );
 
 -- Data insertion to Company
@@ -183,8 +189,8 @@ VALUES
 
 -- Creating EducationLevel table
 CREATE TABLE EducationLevel (
-    level NVARCHAR(50) PRIMARY KEY,
-    factor DECIMAL(18, 2) NOT NULL
+                                level NVARCHAR(50) PRIMARY KEY,
+                                factor DECIMAL(18, 2) NOT NULL
 );
 
 -- Data insertion to EducationLevel
@@ -196,8 +202,8 @@ VALUES
 
 -- Creating Price table
 CREATE TABLE Price (
-    type NVARCHAR(50) PRIMARY KEY,
-    value DECIMAL(18, 2) NOT NULL
+                       type NVARCHAR(50) PRIMARY KEY,
+                       value DECIMAL(18, 2) NOT NULL
 );
 
 -- Data insertion to Price
@@ -207,3 +213,28 @@ VALUES
     ('CPU', 0.30),
     ('CPM', 0.35),
     ('NewClientStandard', 0.50);
+
+-- Creating Campaign table
+CREATE TABLE Campaign (
+                          id VARCHAR(50) PRIMARY KEY,
+                          name NVARCHAR(100) NOT NULL,
+                          startDate DATE NOT NULL,
+                          endDate DATE NOT NULL,
+                          currentRate INT NOT NULL,
+                          needsNewCreation NVARCHAR(10) NOT NULL,
+                          size NVARCHAR(50) NOT NULL,
+                          isAnimated NVARCHAR(10) NOT NULL,
+                          creationDescription NVARCHAR(255),
+                          status NVARCHAR(50) NOT NULL,
+                          plannerId VARCHAR(50) NOT NULL,
+                          trafficId VARCHAR(50),
+                          clientId VARCHAR(50) NOT NULL,
+                          planId VARCHAR(50) NOT NULL,
+                          designerId VARCHAR(50)
+);
+
+-- Data insertion to Campaign
+INSERT INTO Campaign (id, name, startDate, endDate, currentRate, needsNewCreation, size, isAnimated, creationDescription, status, plannerId, trafficId, clientId, planId, designerId)
+VALUES
+    ('0d546278-05c5-47a8-9010-e915ea4a5afb', 'Campaign One', '2024-01-01', '2024-06-01', 100, 'true', 'Large', 'false', 'Description of Campaign One', 'Active', 'c1f8254d-37f6-4ff5-bb55-03dbf95e42a1', NULL, 'cli123', 'plan123', NULL),
+    ('ec1ffaf1-6593-489a-b0a4-dfa77adb1cc2', 'Campaign Two', '2024-02-01', '2024-07-01', 150, 'false', 'Medium', 'true', 'Description of Campaign Two', 'Pending', 'c1f8254d-37f6-4ff5-bb55-03dbf95e42a1', NULL, 'cli456', 'plan456', NULL);
