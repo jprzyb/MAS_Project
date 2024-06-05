@@ -22,22 +22,42 @@ public class Employee {
         this.salary = salary;
     }
 
+    /**
+     * Method that returns employee id
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Method that returns employee first name
+     * @return firstName
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Method that returns employee last name
+     * @return lastName
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Method that returns employee login
+     * @return login
+     */
     public String getLogin() {
         return login;
     }
 
+    /**
+     * Method that returns employee password
+     * @return password
+     */
     public String getPassword() {
         return password;
     }

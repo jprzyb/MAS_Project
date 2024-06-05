@@ -1,4 +1,4 @@
-package pl.pjatk.mas.s24512.masproject;
+package pl.pjatk.mas.s24512.masproject.Utils;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
