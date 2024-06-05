@@ -12,7 +12,7 @@
       <TextField fx:id="loginField" />
       <Label prefHeight="0.0" prefWidth="64.0" text="PASSWORD" />
       <PasswordField fx:id="passField" />
-      <Button fx:id="loginButton" mnemonicParsing="false" text="LogIn" />
+      <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" text="LogIn" />
       <Label fx:id="infoLabel" text="Enter cridentials" />
    </children>
 </FlowPane>
