@@ -11,14 +11,16 @@
    <children>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button mnemonicParsing="false" text="New campaign" />
-            <Button mnemonicParsing="false" onAction="#logout" text="Logout" />
-            <Button mnemonicParsing="false" onAction="#showMyInformation" text="My information" />
+            <Button mnemonicParsing="false" text="Change annual bonus" />
+            <Button mnemonicParsing="false" text="Set employee salary" />
+            <Button mnemonicParsing="false" text="Logout" />
         </items>
          <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
       </ToolBar>
+      <Label text="Employees" />
+      <ListView />
       <Label text="Campaigns" />
       <ListView />
    </children>

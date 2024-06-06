@@ -7,6 +7,6 @@ module pl.pjatk.mas.s24512.masproject {
 
     exports pl.pjatk.mas.s24512.masproject;
     opens pl.pjatk.mas.s24512.masproject to javafx.fxml;
-    exports pl.pjatk.mas.s24512.masproject.Utils;
-    opens pl.pjatk.mas.s24512.masproject.Utils to javafx.fxml;
+//    exports pl.pjatk.mas.s24512.masproject.Utils;
+//    opens pl.pjatk.mas.s24512.masproject.Utils to javafx.fxml;
 }
