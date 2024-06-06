@@ -68,7 +68,7 @@ public class NewCampaignController implements Initializable {
 
     public static void showNewCampaign(PlannerViewController parent){
         try {
-            FXMLLoader loader = new FXMLLoader(MyInformationController.class.getResource("new-campaign-view-fixed.fxml"));
+            FXMLLoader loader = new FXMLLoader(MyInformationController.class.getResource("new-campaign-view.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
