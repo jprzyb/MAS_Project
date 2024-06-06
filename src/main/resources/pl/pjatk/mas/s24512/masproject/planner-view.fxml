@@ -11,7 +11,7 @@
    <children>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button mnemonicParsing="false" text="New campaign" />
+          <Button mnemonicParsing="false" onAction="#showNewCampaign" text="New campaign" />
             <Button mnemonicParsing="false" onAction="#logout" text="Logout" />
             <Button mnemonicParsing="false" onAction="#showMyInformation" text="My information" />
         </items>
@@ -20,7 +20,7 @@
          </VBox.margin>
       </ToolBar>
       <Label text="Campaigns" />
-      <ListView />
+      <ListView fx:id="campaignList" />
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

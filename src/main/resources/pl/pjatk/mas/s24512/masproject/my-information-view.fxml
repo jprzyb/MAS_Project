@@ -14,58 +14,59 @@
       <ToolBar>
          <items>
             <Label text="Name:" textAlignment="CENTER" />
-            <TextField fx:id="firstNameField" text="name" />
+            <TextField fx:id="firstNameField" disable="true" text="name" />
          </items>
       </ToolBar>
       <ToolBar>
          <items>
             <Label fx:id="nameLabel1" text="Role:" textAlignment="CENTER" />
-            <TextField fx:id="roleField" text="role" />
+            <TextField fx:id="roleField" disable="true" text="role" />
          </items>
       </ToolBar>
       <ToolBar>
          <items>
             <Label fx:id="nameLabel2" text="Login:" textAlignment="CENTER" />
-            <TextField fx:id="loginField" text="login" />
+            <TextField fx:id="loginField" disable="true" text="login" />
          </items>
       </ToolBar>
       <ToolBar>
          <items>
             <Label fx:id="nameLabel3" text="Password:" textAlignment="CENTER" />
             <TextField fx:id="passwordField" text="pass" />
-            <Button mnemonicParsing="false" text="Change password" />
+            <Button mnemonicParsing="false" onAction="#setPassword" text="Change password" />
+            <Label fx:id="passInfoLabel" textAlignment="CENTER" />
          </items>
       </ToolBar>
       <ToolBar>
          <items>
             <Label fx:id="nameLabel4" text="Manager:" textAlignment="CENTER" />
-            <TextField fx:id="managerField" text="manager" />
+            <TextField fx:id="managerField" disable="true" text="manager" />
          </items>
       </ToolBar>
       <ToolBar>
          <items>
             <Label fx:id="nameLabel5" text="Birthdate:" textAlignment="CENTER" />
-            <TextField fx:id="birthDateField" text="Birthdate" />
+            <TextField fx:id="birthDateField" disable="true" text="Birthdate" />
          </items>
       </ToolBar>
       <ToolBar>
          <items>
             <Label fx:id="nameLabel6" text="Employment Date:" textAlignment="CENTER" />
-            <TextField fx:id="employmentDateField" text="EmploymentDate:" />
+            <TextField fx:id="employmentDateField" disable="true" text="EmploymentDate:" />
          </items>
       </ToolBar>
       <ToolBar>
          <items>
             <Label fx:id="nameLabel7" text="Salary base:" textAlignment="CENTER" />
-            <TextField fx:id="salaryBaseField" text="11111" />
+            <TextField fx:id="salaryBaseField" disable="true" text="11111" />
             <Label fx:id="nameLabel71" text="Salary final:" textAlignment="CENTER" />
-            <TextField fx:id="salaryFinalField" text="2222" />
+            <TextField fx:id="salaryFinalField" disable="true" text="2222" />
          </items>
       </ToolBar>
       <ToolBar>
          <items>
             <Label fx:id="nameLabel9" text="Level of eduction:" textAlignment="CENTER" />
-            <TextField fx:id="levOfEduField" text="none" />
+            <TextField fx:id="levOfEduField" disable="true" text="none" />
          </items>
       </ToolBar>
       <ButtonBar nodeOrientation="LEFT_TO_RIGHT">

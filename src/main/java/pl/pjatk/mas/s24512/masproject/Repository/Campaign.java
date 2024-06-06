@@ -1,6 +1,6 @@
 package pl.pjatk.mas.s24512.masproject.Repository;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Campaign {
     private String id;
@@ -57,7 +57,7 @@ public class Campaign {
         return currentRate;
     }
 
-    public boolean isNeedsNewCreation() {
+    public boolean needsNewCreation() {
         return needsNewCreation;
     }
 
@@ -95,5 +95,10 @@ public class Campaign {
 
     public String getDesignerId() {
         return designerId;
+    }
+
+    @Override
+    public String toString(){
+        return name;
     }
 }

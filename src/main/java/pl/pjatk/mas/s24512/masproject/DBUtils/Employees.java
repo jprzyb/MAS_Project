@@ -362,11 +362,11 @@ public class Employees {
 
         try { // communication
             String sql = "SELECT factor FROM EducationLevel WHERE level = ?";
+            String l = String.valueOf(level).toLowerCase();
             pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, String.valueOf(level).toLowerCase());
+            pstmt.setString(1, l);
             res = pstmt.executeQuery();
-            System.out.println(res.getDouble(1));
-            if(res.next()) return res.getDouble(1);
+            if(res.next()) return res.getDouble("factor");
         } catch (SQLException e) {
             return 1.0;
         }finally {
@@ -379,5 +379,38 @@ public class Employees {
             }
         }
         return 1.0;
+    }
+
+    public static boolean setPassword(String password, String id){
+        Connection connection;
+        try{
+            Class.forName(DRIVER_NAME);
+            connection = DriverManager.getConnection(URL, USR, PASS);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        ResultSet res = null;
+        PreparedStatement pstmt = null;
+
+        try { // communication
+            String sql = "UPDATE Employee SET password = ? WHERE id = ?";
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, password);
+            pstmt.setString(2, id);
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }finally {
+            try {
+                if (res != null) res.close();
+                if (pstmt != null) pstmt.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

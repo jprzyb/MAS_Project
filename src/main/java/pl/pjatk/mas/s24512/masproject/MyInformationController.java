@@ -7,9 +7,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pl.pjatk.mas.s24512.masproject.DBUtils.Employees;
+import pl.pjatk.mas.s24512.masproject.DBUtils.Login;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,6 +26,8 @@ public class MyInformationController implements Initializable {
     TextField loginField;
     @FXML
     TextField passwordField;
+    @FXML
+    Label passInfoLabel;
     @FXML
     TextField managerField;
     @FXML
@@ -45,7 +50,6 @@ public class MyInformationController implements Initializable {
         birthDateField.setText(String.valueOf(Util.loggedOnEmployee.getBirthDate()));
         employmentDateField.setText(String.valueOf(Util.loggedOnEmployee.getEmploymentDate()));
         salaryBaseField.setText(String.valueOf(Util.loggedOnEmployee.getSalary()));
-        System.out.println(Employees.getFactoryForEduLevel(Util.loggedOnEmployee.getLevelOfEducation()) + " " + Util.loggedOnEmployee.getSalary() + " = " + (Employees.getFactoryForEduLevel(Util.loggedOnEmployee.getLevelOfEducation()) * Util.loggedOnEmployee.getSalary()));
         salaryFinalField.setText(String.valueOf(
                 Employees.getFactoryForEduLevel(Util.loggedOnEmployee.getLevelOfEducation()) * Util.loggedOnEmployee.getSalary()
         ));
@@ -72,5 +76,14 @@ public class MyInformationController implements Initializable {
     private void onOkClick(ActionEvent event){
         Stage  stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    private void setPassword(){
+        if(Employees.setPassword(passwordField.getText(), Util.loggedOnEmployee.getId())) {
+            passInfoLabel.setText("Done");
+            Util.setLoggedOnEmployee(Employees.getEmployeeByLogin(loginField.getText()));
+        }
+        else passInfoLabel.setText("ERROR");
     }
 }
