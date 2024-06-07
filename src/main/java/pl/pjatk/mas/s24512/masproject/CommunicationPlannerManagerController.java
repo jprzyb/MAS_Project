@@ -10,7 +10,7 @@ import pl.pjatk.mas.s24512.masproject.Repository.Employee;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PlannerManagerViewController extends PlannerViewController implements Initializable {
+public class CommunicationPlannerManagerController extends CommunicationPlannerController implements Initializable {
 
     @FXML
     ListView<Employee> employeeList;

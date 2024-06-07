@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import pl.pjatk.mas.s24512.masproject.DBUtils.AnnualBonuses;
 
 import java.net.URL;
@@ -28,7 +27,7 @@ public class AnnualBonusChangeController implements Initializable {
         else if (Util.loggedOnEmployee.getRole().contains("Traffic")) annualBonusField.setText(String.valueOf(AnnualBonuses.getAnnualBonusForTraffics()));
     }
 
-    public static void showAnnualBonusWindow(PlannerManagerViewController parent){
+    public static void showAnnualBonusWindow(CommunicationPlannerManagerController parent){
         try {
             FXMLLoader loader = new FXMLLoader(MyInformationController.class.getResource("annual-bonus-change.fxml"));
             Parent root = loader.load();

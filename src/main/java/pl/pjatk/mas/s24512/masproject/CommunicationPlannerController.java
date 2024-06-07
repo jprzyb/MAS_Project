@@ -12,7 +12,7 @@ import pl.pjatk.mas.s24512.masproject.Repository.Campaign;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PlannerViewController implements Initializable {
+public class CommunicationPlannerController implements Initializable {
     @FXML
     ListView<Campaign> campaignList;
     @FXML

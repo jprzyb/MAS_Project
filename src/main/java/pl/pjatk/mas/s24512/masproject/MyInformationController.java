@@ -61,7 +61,7 @@ public class MyInformationController implements Initializable {
 
     }
 
-    public static void showMyInformation(PlannerViewController parent){
+    public static void showMyInformation(CommunicationPlannerController parent){
         try {
             FXMLLoader loader = new FXMLLoader(MyInformationController.class.getResource("my-information-view.fxml"));
             Parent root = loader.load();

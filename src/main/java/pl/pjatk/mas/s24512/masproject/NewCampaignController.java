@@ -53,6 +53,8 @@ public class NewCampaignController implements Initializable {
     TextArea creationDescriptionField;
     @FXML
     Label infoLabel;
+    @FXML
+    Button newClientButton;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         newCreationCheckBox.setSelected(false);
@@ -63,10 +65,9 @@ public class NewCampaignController implements Initializable {
         for (CreationType c : CreationType.values()) sizeChoiceBox.getItems().add(c);
         Arrays.asList(CommunicationChannels.values()).forEach(c -> communicationChannelChoiceBox.getItems().add(c));
         Clients.getAllClients().forEach(c -> clientChoiceBox.getItems().add(c));
-
     }
 
-    public static void showNewCampaign(PlannerViewController parent){
+    public static void showNewCampaign(CommunicationPlannerController parent){
         try {
             FXMLLoader loader = new FXMLLoader(MyInformationController.class.getResource("new-campaign-view.fxml"));
             Parent root = loader.load();
@@ -112,6 +113,15 @@ public class NewCampaignController implements Initializable {
         Stage  stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.close();
     }
+    @FXML
+    private void onNewClientAction(){
+            onNewClientSelected();
+            showNewClient();
+
+    }
+    private void showNewClient(){
+        NewClientController.showNewClientWindow(this);
+    }
     private String validateInput(){
         if(nameField.getText() == null || nameField.getText().isEmpty()) return "Campaign name is empty.";
         else if(startDateDatePicker.getValue().isBefore(LocalDate.now())) return "Invalid start date.";
@@ -133,5 +143,16 @@ public class NewCampaignController implements Initializable {
         }catch (Exception e){
             return false;
         }
+    }
+    public void afterNewClientClose(){
+        if(!clientChoiceBox.getItems().isEmpty()) clientChoiceBox.getItems().removeAll(clientChoiceBox.getItems());
+        Clients.getAllClients().forEach(c -> clientChoiceBox.getItems().add(c));
+        clientChoiceBox.setDisable(false);
+        newClientButton.setDisable(false);
+    }
+
+    private void onNewClientSelected(){
+        clientChoiceBox.setDisable(true);
+        newClientButton.setDisable(true);
     }
 }

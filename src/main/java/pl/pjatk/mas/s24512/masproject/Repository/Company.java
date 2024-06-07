@@ -31,7 +31,7 @@ public class Company {
         return accountNumber;
     }
 
-    public boolean isRegular() {
+    public boolean getIsRegular() {
         return isRegular;
     }
     @Override

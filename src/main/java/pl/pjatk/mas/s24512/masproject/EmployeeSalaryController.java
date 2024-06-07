@@ -32,7 +32,7 @@ public class EmployeeSalaryController implements Initializable {
         employeeSalaryField.setText(String.valueOf(employee.getSalary()));
     }
 
-    public static void showEmployeeSalaryWindow(Employee selectedEmployee, PlannerManagerViewController parent){
+    public static void showEmployeeSalaryWindow(Employee selectedEmployee, CommunicationPlannerManagerController parent){
         if(isShown) return;
         employee = selectedEmployee;
         try {
