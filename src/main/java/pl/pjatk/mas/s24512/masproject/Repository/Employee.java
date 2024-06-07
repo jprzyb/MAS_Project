@@ -1,6 +1,7 @@
 package pl.pjatk.mas.s24512.masproject.Repository;
 
 import pl.pjatk.mas.s24512.masproject.DBUtils.Employees;
+import pl.pjatk.mas.s24512.masproject.DBUtils.EmployeesTypes;
 import pl.pjatk.mas.s24512.masproject.Util;
 
 import java.util.Date;
@@ -69,31 +70,21 @@ public class Employee {
     }
 
     public String getRole(){
-        if(Employees.IsCommunicationPlanner(getId())) return "Communication Planner";
-        else if(Employees.IsPlannerManager (getId())) return "Traffic";
-        else if(Employees.IsTraffic (getId())) return "Communication Manager";
-        else if(Employees.IsTrafficManager (getId())) return "Traffic Manager";
-        else if(Employees.IsTrafficAIO (getId())) return "Traffic / Traffic Manager";
-        else if(Employees.IsDesigner (getId())) return "Designer";
-        else if(Employees.IsCampaignAccountant (getId())) return "Campaign accountant";
-        else if(Employees.IsCorporateAccountant (getId())) return "Company accountant";
-        else if(Employees.IsAccountantAIO (getId())) return "Company/Campaign Accountant";
+        if(EmployeesTypes.IsCommunicationPlanner(getId())) return "Communication Planner";
+        else if(EmployeesTypes.IsPlannerManager (getId())) return "Planner Manager";
+        else if(EmployeesTypes.IsTraffic (getId())) return "Traffic";
+        else if(EmployeesTypes.IsTrafficManager (getId())) return "Traffic Manager";
+        else if(EmployeesTypes.IsTrafficAIO (getId())) return "Traffic / Traffic Manager";
+        else if(EmployeesTypes.IsDesigner (getId())) return "Designer";
+        else if(EmployeesTypes.IsCampaignAccountant (getId())) return "Campaign accountant";
+        else if(EmployeesTypes.IsCorporateAccountant (getId())) return "Company accountant";
+        else if(EmployeesTypes.IsAccountantAIO (getId())) return "Company/Campaign Accountant";
 
         return "";
     }
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "id='" + id + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", birthDate=" + birthDate +
-                ", employmentDate=" + employmentDate +
-                ", salary=" + salary +
-                ", managerId='" + managerId + '\'' +
-                '}';
+        return firstName + " " + lastName;
     }
 }

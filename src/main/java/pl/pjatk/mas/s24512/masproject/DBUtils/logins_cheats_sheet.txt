@@ -1,0 +1,29 @@
+Communication Planners:
+    johdoe0
+    jansmi0
+    alijoh0
+
+Planner Manager:
+    samjoh0
+
+Traffic:
+    mictay0
+    jansmi1
+    alijoh1
+
+Traffic Manager:
+    bobbro0
+
+TrafficAIO:
+    sarand0
+
+Designer:
+    chrwil0
+
+Campaign accountant:
+    jesmar0
+
+Company accountant:
+    matrod0
+Company/Campaign accountant:
+    amahar0

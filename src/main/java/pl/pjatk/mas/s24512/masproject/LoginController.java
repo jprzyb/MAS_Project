@@ -12,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pl.pjatk.mas.s24512.masproject.DBUtils.Employees;
+import pl.pjatk.mas.s24512.masproject.DBUtils.EmployeesTypes;
 import pl.pjatk.mas.s24512.masproject.DBUtils.Login;
 import pl.pjatk.mas.s24512.masproject.Repository.Employee;
 
@@ -43,15 +44,15 @@ public class LoginController implements Initializable {
 
     private void changeView(ActionEvent event){
         String viewType = "NONE";
-        if(Employees.IsCommunicationPlanner(Util.loggedOnEmployee.getId())) viewType = "planner-view.fxml";
-        else if(Employees.IsPlannerManager (Util.loggedOnEmployee.getId())) viewType = "traffic-view.fxml";
-        else if(Employees.IsTraffic (Util.loggedOnEmployee.getId())) viewType = "planner-manager-view.fxml";
-        else if(Employees.IsTrafficManager (Util.loggedOnEmployee.getId())) viewType = "traffic-manager-view.fxml";
-        else if(Employees.IsTrafficAIO (Util.loggedOnEmployee.getId())) viewType = "traffic-AIO-view.fxml";
-        else if(Employees.IsDesigner (Util.loggedOnEmployee.getId())) viewType = "designer-view.fxml";
-        else if(Employees.IsCampaignAccountant (Util.loggedOnEmployee.getId())) viewType = "campaign-accountant-view.fxml";
-        else if(Employees.IsCorporateAccountant (Util.loggedOnEmployee.getId())) viewType = "company-accountant-view.fxml";
-        else if(Employees.IsAccountantAIO (Util.loggedOnEmployee.getId())) viewType = "accountant-AIO-view.fxml";
+        if(EmployeesTypes.IsCommunicationPlanner(Util.loggedOnEmployee.getId())) viewType = "planner-view.fxml";
+        else if(EmployeesTypes.IsPlannerManager (Util.loggedOnEmployee.getId())) viewType = "planner-manager-view.fxml";
+        else if(EmployeesTypes.IsTraffic (Util.loggedOnEmployee.getId())) viewType = "traffic-view.fxml";
+        else if(EmployeesTypes.IsTrafficManager (Util.loggedOnEmployee.getId())) viewType = "traffic-manager-view.fxml";
+        else if(EmployeesTypes.IsTrafficAIO (Util.loggedOnEmployee.getId())) viewType = "traffic-AIO-view.fxml";
+        else if(EmployeesTypes.IsDesigner (Util.loggedOnEmployee.getId())) viewType = "designer-view.fxml";
+        else if(EmployeesTypes.IsCampaignAccountant (Util.loggedOnEmployee.getId())) viewType = "campaign-accountant-view.fxml";
+        else if(EmployeesTypes.IsCorporateAccountant (Util.loggedOnEmployee.getId())) viewType = "company-accountant-view.fxml";
+        else if(EmployeesTypes.IsAccountantAIO (Util.loggedOnEmployee.getId())) viewType = "accountant-AIO-view.fxml";
 
         try {
             Stage stage;
@@ -69,6 +70,7 @@ public class LoginController implements Initializable {
 
 
     public static void setToLogOffScene(ActionEvent event){
+        Util.setLoggedOnEmployee(null);
         Stage stage;
         Scene scene;
         Parent root;

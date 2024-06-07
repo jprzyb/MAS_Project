@@ -8,11 +8,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pl.pjatk.mas.s24512.masproject.DBUtils.Employees;
-import pl.pjatk.mas.s24512.masproject.DBUtils.Login;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,7 +44,11 @@ public class MyInformationController implements Initializable {
         roleField.setText(Util.loggedOnEmployee.getRole());
         loginField.setText(Util.loggedOnEmployee.getLogin());
         passwordField.setText(Util.loggedOnEmployee.getPassword());
-        managerField.setText(Util.loggedOnEmployee.getManagerId() + "in progress");
+        try{
+            managerField.setText(Employees.getEmployeeById(Util.loggedOnEmployee.getManagerId()).toString());
+        }catch (Exception e){
+            managerField.setText("You are your own boss.");
+        }
         birthDateField.setText(String.valueOf(Util.loggedOnEmployee.getBirthDate()));
         employmentDateField.setText(String.valueOf(Util.loggedOnEmployee.getEmploymentDate()));
         salaryBaseField.setText(String.valueOf(Util.loggedOnEmployee.getSalary()));
@@ -59,7 +61,7 @@ public class MyInformationController implements Initializable {
 
     }
 
-    public static void showMyInformation(){
+    public static void showMyInformation(PlannerViewController parent){
         try {
             FXMLLoader loader = new FXMLLoader(MyInformationController.class.getResource("my-information-view.fxml"));
             Parent root = loader.load();
@@ -68,6 +70,7 @@ public class MyInformationController implements Initializable {
             stage.setScene(scene);
             stage.setTitle("My information");
             stage.show();
+            stage.setOnHiding((windowEvent -> parent.afterMyInfoClose()));
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -75,7 +75,7 @@ public class NewCampaignController implements Initializable {
             stage.setScene(scene);
             stage.setTitle("New Campaign");
             stage.show();
-            stage.setOnHiding((WindowEvent event) -> parent.loadList());
+            stage.setOnHiding((WindowEvent event) -> parent.afterNewCampaignClose());
         } catch (Exception e) {
             e.printStackTrace();
         }

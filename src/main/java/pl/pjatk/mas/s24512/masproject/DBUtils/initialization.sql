@@ -239,3 +239,15 @@ INSERT INTO Campaign (id, name, startDate, endDate, currentRate, needsNewCreatio
 VALUES
     ('0d546278-05c5-47a8-9010-e915ea4a5afb', 'Campaign One', '2024-01-01', '2024-06-01', 100, 'true', 'FULLPAGE', 'false', 'Description of Campaign One', 'PLANNED', '46e34848-f01a-4b54-8aa6-5d64a9431982', NULL, 'b1641f49-147e-4626-b79e-2b2c6c1960b7', '4524ae45-e569-433a-8ab6-610b828d9e0b', NULL),
     ('ec1ffaf1-6593-489a-b0a4-dfa77adb1cc2', 'Campaign Two', '2024-02-01', '2024-07-01', 150, 'false', 'BOTTOMBANNER', 'true', 'Description of Campaign Two', 'INPROGRESS', '46e34848-f01a-4b54-8aa6-5d64a9431982', NULL, 'c1f8254d-37f6-4ff5-bb55-03dbf95e42a1', '26101caa-01ab-4ed3-b9a5-6033e8ba0769', NULL);
+
+-- Creating AnnualBonus table
+CREATE TABLE AnnualBonus (
+                             team NVARCHAR(50) PRIMARY KEY,
+                             bonus DECIMAL(18, 2) NOT NULL
+);
+
+-- Data insertion to AnnualBonus
+INSERT INTO AnnualBonus (team, bonus)
+VALUES
+    ('planners', 1000.0),
+    ('traffics', 1200.0);
