@@ -4,7 +4,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import pl.pjatk.mas.s24512.masproject.DBUtils.AnnualBonuses;
+import pl.pjatk.mas.s24512.masproject.DBUtils.Campaigns;
 import pl.pjatk.mas.s24512.masproject.DBUtils.Employees;
+import pl.pjatk.mas.s24512.masproject.Repository.CommunicationPlannerManager;
 import pl.pjatk.mas.s24512.masproject.Repository.Employee;
 
 import java.net.URL;
@@ -13,15 +16,17 @@ import java.util.ResourceBundle;
 public class CommunicationPlannerManagerController extends CommunicationPlannerController implements Initializable {
 
     @FXML
-    ListView<Employee> employeeList;
+    protected ListView<Employee> employeeList;
     @FXML
-    Button setSalaryButton;
+    protected Button setSalaryButton;
     @FXML
-    Button setAnnualBonusButton;
+    protected Button setAnnualBonusButton;
+    private CommunicationPlannerManager communicationPlannerManager;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        communicationPlannerManager = new CommunicationPlannerManager(Util.loggedOnEmployee, Campaigns.getCampaignsForPlannerWithId(Util.loggedOnEmployee.getId()),Employees.getSubordinates(Util.loggedOnEmployee.getId()));
         loadEmployeeList();
         super.initialize(url,resourceBundle);
     }
@@ -43,8 +48,9 @@ public class CommunicationPlannerManagerController extends CommunicationPlannerC
 
     private void loadEmployeeList() {
         if (employeeList != null){
+            communicationPlannerManager.setEmployeeList(Employees.getSubordinates(communicationPlannerManager.getId()));
             employeeList.getItems().removeAll(employeeList.getItems());
-            employeeList.getItems().addAll(Employees.getSubordinates(Util.loggedOnEmployee.getId()));
+            employeeList.getItems().addAll(communicationPlannerManager.getEmployeeList());
         }
     }
 
@@ -54,6 +60,7 @@ public class CommunicationPlannerManagerController extends CommunicationPlannerC
     }
 
     public void afterAnnualBonusChangeClose(){
+        communicationPlannerManager.setAnnualBonus(AnnualBonuses.getAnnualBonusForPlanners());
         setAnnualBonusButton.setDisable(false);
     }
 }

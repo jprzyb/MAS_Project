@@ -1,13 +1,15 @@
 package pl.pjatk.mas.s24512.masproject.Repository;
 
-import java.util.ArrayList;
+import pl.pjatk.mas.s24512.masproject.DBUtils.Campaigns;
+
 import java.util.Date;
 import java.util.List;
 
 public class CommunicationPlanner extends Employee{
-    private List<Campaign> campaignsAssigned;
-    public CommunicationPlanner(String id, String firstName, String lastName, String login, String password, Date birthDate, Date employmentDate, double salary, LevelOfEducation levelOfEducation) {
-        super(id, firstName, lastName, login, password, birthDate, employmentDate, salary, null, levelOfEducation);
+    private List<Campaign> campaigns;
+    public CommunicationPlanner(Employee employee, List<Campaign> campaigns) {
+        super(employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getLogin(), employee.getPassword(), employee.getBirthDate(), employee.getEmploymentDate(), employee.getSalary(), employee.getManagerId(), employee.getLevelOfEducation());
+        this.campaigns = campaigns;
     }
 
     /**
@@ -16,8 +18,10 @@ public class CommunicationPlanner extends Employee{
      * @return result
      */
     public List<Campaign> getCampaignsAssigned(){
-        List<Campaign> result = new ArrayList<>();
+        return campaigns;
+    }
 
-        return result;
+    public void setCampaignsAssigned(List<Campaign> campaigns) {
+        this.campaigns = campaigns;
     }
 }

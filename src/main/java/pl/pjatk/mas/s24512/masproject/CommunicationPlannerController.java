@@ -8,6 +8,7 @@ import javafx.scene.control.ListView;
 import pl.pjatk.mas.s24512.masproject.DBUtils.Campaigns;
 import pl.pjatk.mas.s24512.masproject.DBUtils.Employees;
 import pl.pjatk.mas.s24512.masproject.Repository.Campaign;
+import pl.pjatk.mas.s24512.masproject.Repository.CommunicationPlanner;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,8 +20,11 @@ public class CommunicationPlannerController implements Initializable {
     Button newCampaignButton;
     @FXML
     Button myInfoButton;
+    @FXML
+    CommunicationPlanner communicationPlanner;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        communicationPlanner = new CommunicationPlanner(Util.loggedOnEmployee, Campaigns.getCampaignsForPlannerWithId(Util.loggedOnEmployee.getId()));
         loadLists();
     }
 
@@ -41,8 +45,9 @@ public class CommunicationPlannerController implements Initializable {
     }
     private void loadLists(){
         if (campaignList != null){
+            communicationPlanner.setCampaignsAssigned(Campaigns.getCampaignsForPlannerWithId(communicationPlanner.getId()));
             campaignList.getItems().removeAll(campaignList.getItems());
-            campaignList.getItems().addAll(Campaigns.getCampaignsForPlannerWithId(Util.loggedOnEmployee.getId()));
+            campaignList.getItems().addAll(communicationPlanner.getCampaignsAssigned());
         }
     }
     public void afterNewCampaignClose(){

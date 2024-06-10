@@ -75,6 +75,20 @@ public class MyInformationController implements Initializable {
             e.printStackTrace();
         }
     }
+    public static void showMyInformation(TrafficViewController parent){
+        try {
+            FXMLLoader loader = new FXMLLoader(MyInformationController.class.getResource("my-information-view.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("My information");
+            stage.show();
+            stage.setOnHiding((windowEvent -> parent.afterMyInfoClose()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     private void onOkClick(ActionEvent event){
         Stage  stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
