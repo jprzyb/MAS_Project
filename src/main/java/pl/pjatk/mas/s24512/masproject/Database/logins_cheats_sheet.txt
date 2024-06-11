@@ -25,5 +25,6 @@ Campaign accountant:
 
 Company accountant:
     matrod0
+
 Company/Campaign accountant:
     amahar0

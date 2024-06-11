@@ -2,21 +2,22 @@ package pl.pjatk.mas.s24512.masproject.Models;
 
 import pl.pjatk.mas.s24512.masproject.Models.enums.SettlementType;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Price {
 
-    private static Map<SettlementType, Double> prices;
+    private static HashMap<SettlementType, Double> prices;
 
-    public Price(Map<SettlementType, Double> prices) {
+    public Price(HashMap<SettlementType, Double> prices) {
         this.prices = prices;
     }
 
-    public Map<SettlementType, Double> getPrices() {
+    public HashMap<SettlementType, Double> getPrices() {
         return prices;
     }
 
-    public void setPrices(Map<SettlementType, Double> prices) {
+    public void setPrices(HashMap<SettlementType, Double> prices) {
         this.prices = prices;
     }
 

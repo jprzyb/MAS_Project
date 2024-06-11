@@ -1,35 +1,22 @@
 package pl.pjatk.mas.s24512.masproject.Models;
 
-import pl.pjatk.mas.s24512.masproject.Util;
-
-import java.sql.Date;
-import java.util.Arrays;
+import pl.pjatk.mas.s24512.masproject.Database.Load;
+import pl.pjatk.mas.s24512.masproject.Models.enums.TeamType;
 
 public class Test {
     public static void main(String[] args) {
-//        Util.loadData();
-//        EducationLevel e = new EducationLevel("DEGREE");
-//        Traffic traffic = new Traffic("asdad", "adam", "Wkladam","xx","pass",new Date(1625164800000L),
-//                new Date(1625164800000L),12312.0, e, Arrays.asList("x"),"manager");
-//
-//        TrafficManager trafficManager = new TrafficManager("manager", "adam", "Wkladam","xx","pass",new Date(1625164800000L),
-//                new Date(1625164800000L),12312.0, e, Arrays.asList("x"));
-//
-//        System.out.println(traffic);
-//        System.out.println(trafficManager);
-//
-//        Util.trafficManagers.add(trafficManager);
-//        Util.traffics.add(traffic);
-//        trafficManager.addSubordinate(traffic.getId());
-//
-//        System.out.println(traffic);
-//        System.out.println(trafficManager);
-//
-//        Util.trafficManagers.add(trafficManager);
-//        Util.traffics.add(traffic);
-//        trafficManager.addSubordinate(traffic.getId());
-//
-//        System.out.println(traffic);
-//        System.out.println(trafficManager);
+        System.out.println("Planners: " + Load.loadCommunicationPlanners());
+        System.out.println("Planners Managers: " + Load.loadCommunicationPlannerManagers());
+        System.out.println("Traffics: " + Load.loadTraffics());
+        System.out.println("Traffics Managers: " + Load.loadTrafficManagers());
+        System.out.println("Traffics AIO: " + Load.loadTrafficsAIO());
+        System.out.println("Designers: " + Load.loadDesigners());
+        System.out.println("Accountants: " + Load.loadAccountants());
+        System.out.println("Clients: " + Load.loadClients());
+        System.out.println("Companies: " + Load.loadCompanies());
+        System.out.println("Bonus planners: " + Load.loadAnnualBonusForTeam(TeamType.PLANNERS));
+        System.out.println("Bonus traffics: " + Load.loadAnnualBonusForTeam(TeamType.TRAFFICS));
+        System.out.println("Education level: " + Load.loadEducationLevels());
+        System.out.println("Prices: " + Load.loadPrices());
     }
 }

@@ -1,13 +1,16 @@
 package pl.pjatk.mas.s24512.masproject.Models;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TrafficAIO extends TrafficManager implements ITraffic {
 
     private List<String> campaignIds;
-    public TrafficAIO(String id, String firstName, String lastName, String login, String password, Date birthDate, Date employmentDate, double salary, EducationLevel educationLevel, List<String> subordinatesIds) {
+    public TrafficAIO(String id, String firstName, String lastName, String login, String password, Date birthDate, Date employmentDate, double salary, EducationLevel educationLevel, List<String> subordinatesIds, List<String> campaignIds) {
         super(id, firstName, lastName, login, password, birthDate, employmentDate, salary, educationLevel, subordinatesIds);
+        this.campaignIds = new ArrayList<>();
+        this.campaignIds.addAll(campaignIds);
     }
 
     public List<String> getCampaignIds() {

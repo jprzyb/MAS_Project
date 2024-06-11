@@ -1,5 +1,6 @@
 package pl.pjatk.mas.s24512.masproject;
 
+import pl.pjatk.mas.s24512.masproject.Database.Load;
 import pl.pjatk.mas.s24512.masproject.Models.*;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class Util {
     public static List<Accountant> accountants;
     public static List<Designer> designers;
     public static void loadData(){
-        communicationPlanners = new ArrayList<>();
+        communicationPlanners = Load.loadCommunicationPlanners();
         communicationPlannerManagers = new ArrayList<>();
         traffics = new ArrayList<>();
         trafficManagers = new ArrayList<>();
@@ -29,7 +30,7 @@ public class Util {
         campaigns = new ArrayList<>();
         plans = new ArrayList<>();
         accountants = new ArrayList<>();
-        accountants = new ArrayList<>();
+        designers = new ArrayList<>();
     }
 
     public static void saveData(){

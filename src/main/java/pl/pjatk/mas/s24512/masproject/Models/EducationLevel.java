@@ -2,20 +2,17 @@ package pl.pjatk.mas.s24512.masproject.Models;
 
 import pl.pjatk.mas.s24512.masproject.Models.enums.EducationType;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class EducationLevel {
-    private static Map<EducationType, Double> map;
+    private static HashMap<EducationType, Double> map;
     private EducationType educationType;
     public EducationLevel(String value){
-        try{
-            educationType = EducationType.valueOf(value);
-        }catch (Exception e){
-            e.printStackTrace();
-            educationType = null;
-        }
+            if (educationType != null) educationType = EducationType.valueOf(value);
+            else educationType = null;
     }
-    public static void setMap(Map<EducationType, Double> m){
+    public static void setMap(HashMap<EducationType, Double> m){
         map = m;
     }
     public double getFactor(){
