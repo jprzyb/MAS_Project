@@ -1,0 +1,13 @@
+package pl.pjatk.mas.s24512.masproject.Models.enums;
+
+public enum RoleType {
+    COMMUNICATION_PLANNER,
+    COMMUNICATION_PLANNER_MANAGER,
+    TRAFFIC,
+    TRAFFIC_MANAGER,
+    TRAFFIC_AIO,
+    ACCOUNTANT_CAMPAIGN,
+    ACCOUNTANT_COMPANY,
+    ACCOUNTANT_AIO,
+    DESIGNER
+}
