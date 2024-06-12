@@ -1,5 +1,9 @@
 package pl.pjatk.mas.s24512.masproject.Database;
 
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Utils {
 
     public static final String URL = "jdbc:sqlserver://KUBUS;trustServerCertificate=true";
@@ -24,5 +28,4 @@ public class Utils {
     public static final String TRAFFIC_TABLE = "Traffic";
     public static final String TRAFFIC_AIO_TABLE = "TrafficAIO";
     public static final String TRAFFIC_MANAGER_TABLE = "TrafficManager";
-
 }

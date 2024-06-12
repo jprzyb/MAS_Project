@@ -253,7 +253,6 @@ public class Save {
             }
         }
     }
-
     private static void updatePlan(Plan plan) {
         Connection connection = null;
         try{

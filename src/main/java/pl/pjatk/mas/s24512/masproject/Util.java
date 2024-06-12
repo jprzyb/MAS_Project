@@ -3,17 +3,14 @@ package pl.pjatk.mas.s24512.masproject;
 import pl.pjatk.mas.s24512.masproject.Database.Load;
 import pl.pjatk.mas.s24512.masproject.Database.Save;
 import pl.pjatk.mas.s24512.masproject.Models.*;
-import pl.pjatk.mas.s24512.masproject.Models.enums.SettlementType;
-import pl.pjatk.mas.s24512.masproject.Models.enums.SizeType;
-import pl.pjatk.mas.s24512.masproject.Models.enums.StatusType;
-import pl.pjatk.mas.s24512.masproject.Models.enums.TeamType;
+import pl.pjatk.mas.s24512.masproject.Models.enums.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
 public class Util {
-    public static Runnable LOGGED_ON_ROLE;
+    public static RoleType LOGGED_ON_ROLE;
     public static List<CommunicationPlanner> communicationPlanners;
     public static List<CommunicationPlannerManager> communicationPlannerManagers;
     public static List<Traffic> traffics;
@@ -42,7 +39,6 @@ public class Util {
         accountants = Load.loadAccountants();
         designers = Load.loadDesigners();
     }
-
     public static void saveData(){
         Save.saveCommunicationPlanners();
         Save.saveTraffics();
@@ -58,7 +54,6 @@ public class Util {
         Save.saveTrafficsAIO();
         Save.saveTrafficManagers();
     }
-
     public static CommunicationPlanner getCommunicationPlannerById(String id) {
         for (CommunicationPlanner o : communicationPlanners) if(o.getId().equals(id)) return o;
         return null;
@@ -67,29 +62,50 @@ public class Util {
         for (CommunicationPlannerManager o : communicationPlannerManagers) if(o.getId().equals(id)) return o;
         return null;
     }
-
     public static Traffic getTrafficById(String id) {
         for (Traffic o : traffics) if(o.getId().equals(id)) return o;
         return null;
     }
-
     public static TrafficManager getTrafficManagerById(String id) {
         for (TrafficManager o : trafficManagers) if(o.getId().equals(id)) return o;
         return null;
     }
-
     public static TrafficAIO getTrafficAIOById(String id) {
         for (TrafficAIO o : trafficsAIO) if(o.getId().equals(id)) return o;
         return null;
     }
-
     public static Company getCompanyById(String id){
         for(Company o : companies) if(o.getId().equals(id)) return o;
         return null;
     }
-
     public static Client getClientById(String id){
         for(Client o : clients) if(o.getId().equals(id)) return o;
         return null;
+    }
+
+    public static String getEmployeeIdByLogin(String login){
+        for(CommunicationPlanner p : communicationPlanners) if(p.getLogin().equals(login)) return p.getId();
+        for(CommunicationPlannerManager p : communicationPlannerManagers) if(p.getLogin().equals(login)) return p.getId();
+        return "";
+    }
+
+    public static RoleType getRoleById(String id){
+        for(CommunicationPlanner p : communicationPlanners){
+            if(p.getId().equals(id)) return RoleType.COMMUNICATION_PLANNER;
+        }
+        for(CommunicationPlannerManager p : communicationPlannerManagers) if(p.getId().equals(id)) return RoleType.COMMUNICATION_PLANNER_MANAGER;
+        return null;
+    }
+
+    public static boolean validateLogin(String login, String pass){
+        for(CommunicationPlanner p : communicationPlanners){
+//            System.out.println(p.getLogin() + " " + p.getPassword() + " == " + login + " " + pass);
+            if(p.getLogin().equals(login) && p.getPassword().equals(pass)) return true;
+        }
+        for(CommunicationPlannerManager p : communicationPlannerManagers){
+//            System.out.println(p.getLogin() + " " + p.getPassword() + " == " + login + " " + pass);
+            if(p.getLogin().equals(login) && p.getPassword().equals(pass)) return true;
+        }
+        return false;
     }
 }
