@@ -1,9 +1,15 @@
 package pl.pjatk.mas.s24512.masproject;
 
 import pl.pjatk.mas.s24512.masproject.Database.Load;
+import pl.pjatk.mas.s24512.masproject.Database.Save;
 import pl.pjatk.mas.s24512.masproject.Models.*;
+import pl.pjatk.mas.s24512.masproject.Models.enums.SettlementType;
+import pl.pjatk.mas.s24512.masproject.Models.enums.SizeType;
+import pl.pjatk.mas.s24512.masproject.Models.enums.StatusType;
+import pl.pjatk.mas.s24512.masproject.Models.enums.TeamType;
 
-import java.util.ArrayList;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Util {
@@ -20,21 +26,37 @@ public class Util {
     public static List<Accountant> accountants;
     public static List<Designer> designers;
     public static void loadData(){
+        CommunicationPlannerManager.setAnnualBonus(Load.loadAnnualBonusForTeam(TeamType.PLANNERS));
+        TrafficManager.setAnnualBonus(Load.loadAnnualBonusForTeam(TeamType.TRAFFICS));
+        Price.setPrices(Load.loadPrices());
+        EducationLevel.setMap(Load.loadEducationLevels());
         communicationPlanners = Load.loadCommunicationPlanners();
-        communicationPlannerManagers = new ArrayList<>();
-        traffics = new ArrayList<>();
-        trafficManagers = new ArrayList<>();
-        trafficsAIO = new ArrayList<>();
-        companies = new ArrayList<>();
-        clients = new ArrayList<>();
-        campaigns = new ArrayList<>();
-        plans = new ArrayList<>();
-        accountants = new ArrayList<>();
-        designers = new ArrayList<>();
+        communicationPlannerManagers = Load.loadCommunicationPlannerManagers();
+        traffics = Load.loadTraffics();
+        trafficManagers = Load.loadTrafficManagers();
+        trafficsAIO = Load.loadTrafficsAIO();
+        companies = Load.loadCompanies();
+        clients = Load.loadClients();
+        campaigns = Load.loadCampaigns();
+        plans = Load.loadPlans();
+        accountants = Load.loadAccountants();
+        designers = Load.loadDesigners();
     }
 
     public static void saveData(){
-
+        Save.saveCommunicationPlanners();
+        Save.saveTraffics();
+        Save.saveAccountants();
+        Save.saveCommunicationPlannerManagers();
+        CommunicationPlannerManager.setAnnualBonus(1.0);
+        Save.saveAnnualBonuses();
+        Save.saveCampaigns();
+        Save.savePlans();
+        Save.saveClients();
+        Save.saveCompanies();
+        Save.saveDesigners();
+        Save.saveTrafficsAIO();
+        Save.saveTrafficManagers();
     }
 
     public static CommunicationPlanner getCommunicationPlannerById(String id) {

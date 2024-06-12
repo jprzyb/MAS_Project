@@ -37,7 +37,7 @@ VALUES
 --     Designer
 ('7cb68ec3-d76a-4314-8e88-4a3c4b4eab64', 'd1', 'd1', 'd1', 'a', '1989-02-28', '2013-07-15', 68000.00, 'MASTER_DEGREE'),
 --     Campaign accountant
-('b3a1f73b-c90a-4dbd-b729-4d1f166982fc', 'cca1', 'cca1', 'cca1', 'a', '1997-05-20', '2019-09-08', 58000.00,NULL),
+('b3a1f73b-c90a-4dbd-b729-4d1f166982fc', 'cca1', 'cca1', 'cca1', 'a', '1997-05-20', '2019-09-08', 58000.00, NULL),
 --     Company accountant
 ('9327e2d3-8920-4841-95c2-fc9200b748e8', 'cco1', 'cco1', 'cco1', 'a', '1990-11-15', '2012-04-30', 72000.00,'DEGREE'),
 --     Company/Campaign accountant
@@ -227,6 +227,7 @@ CREATE TABLE Campaign (
                           isAnimated NVARCHAR(10) NOT NULL,
                           creationDescription NVARCHAR(255),
                           status NVARCHAR(50) NOT NULL,
+                          settlement NVARCHAR(50) NOT NULL,
                           plannerId VARCHAR(50) NOT NULL,
                           trafficId VARCHAR(50),
                           clientId VARCHAR(50) NOT NULL,
@@ -236,10 +237,10 @@ CREATE TABLE Campaign (
 );
 
 -- Data insertion to Campaign
-INSERT INTO Campaign (id, name, startDate, endDate, currentRate, needsNewCreation, size, isAnimated, creationDescription, status, plannerId, trafficId, clientId, planId, designerId, accountantId)
+INSERT INTO Campaign (id, name, startDate, endDate, currentRate, needsNewCreation, size, isAnimated, creationDescription, status, settlement, plannerId, trafficId, clientId, planId, designerId, accountantId)
 VALUES
-    ('0d546278-05c5-47a8-9010-e915ea4a5afb', 'Campaign One', '2024-01-01', '2024-06-01', 100, 'true', 'FULL_PAGE', 'false', 'Description of Campaign One', 'PLANNED', '46e34848-f01a-4b54-8aa6-5d64a9431982', NULL, 'b1641f49-147e-4626-b79e-2b2c6c1960b7', '4524ae45-e569-433a-8ab6-610b828d9e0b', NULL, NULL),
-    ('ec1ffaf1-6593-489a-b0a4-dfa77adb1cc2', 'Campaign Two', '2024-02-01', '2024-07-01', 150, 'false', 'BOTTOM_BANNER', 'true', 'Description of Campaign Two', 'IN_PROGRESS', '46e34848-f01a-4b54-8aa6-5d64a9431982', NULL, 'c1f8254d-37f6-4ff5-bb55-03dbf95e42a1', '26101caa-01ab-4ed3-b9a5-6033e8ba0769', NULL, NULL);
+    ('0d546278-05c5-47a8-9010-e915ea4a5afb', 'Campaign One', '2024-01-01', '2024-06-01', 100, 'true', 'FULL_PAGE', 'false', 'Description of Campaign One', 'PLANNED', 'CPC' ,'46e34848-f01a-4b54-8aa6-5d64a9431982', NULL, 'b1641f49-147e-4626-b79e-2b2c6c1960b7', '4524ae45-e569-433a-8ab6-610b828d9e0b', NULL, NULL),
+    ('ec1ffaf1-6593-489a-b0a4-dfa77adb1cc2', 'Campaign Two', '2024-02-01', '2024-07-01', 150, 'false', 'BOTTOM_BANNER', 'true', 'Description of Campaign Two', 'IN_PROGRESS','CPM' , '46e34848-f01a-4b54-8aa6-5d64a9431982', NULL, 'c1f8254d-37f6-4ff5-bb55-03dbf95e42a1', '26101caa-01ab-4ed3-b9a5-6033e8ba0769', NULL, NULL);
 
 -- Creating AnnualBonus table
 CREATE TABLE AnnualBonus (

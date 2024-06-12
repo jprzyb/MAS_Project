@@ -11,7 +11,7 @@ public class Utils {
     public static final String ANNUAL_BONUS_TABLE = "AnnualBonus";
     public static final String CAMPAIGN_TABLE = "Campaign";
     public static final String CAMPAIGN_ACCOUNTANT_TABLE = "CampaignAccountant";
-    public static final String CAMPAIGN_PLAN = "CampaignPlan";
+    public static final String CAMPAIGN_PLAN_TABLE = "CampaignPlan";
     public static final String CLIENT_TABLE = "Client";
     public static final String COMMUNICATION_PLANNER_TABLE = "CommunicationPlanner";
     public static final String COMPANY_TABLE = "Company";

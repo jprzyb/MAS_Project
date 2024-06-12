@@ -1,10 +1,7 @@
 package pl.pjatk.mas.s24512.masproject.Database;
 
 import pl.pjatk.mas.s24512.masproject.Models.*;
-import pl.pjatk.mas.s24512.masproject.Models.enums.AccountantType;
-import pl.pjatk.mas.s24512.masproject.Models.enums.EducationType;
-import pl.pjatk.mas.s24512.masproject.Models.enums.SettlementType;
-import pl.pjatk.mas.s24512.masproject.Models.enums.TeamType;
+import pl.pjatk.mas.s24512.masproject.Models.enums.*;
 
 import java.sql.*;
 import java.sql.Date;
@@ -365,10 +362,15 @@ public class Load {
                 double salary = res.getDouble("salary");
                 String edu = res.getString("levelOfEducation");
 
-                if(isAccountantAIO(id)) result.add(new Accountant(id, firstName,lastName, login, password, birthDate, employmentDate, salary, new EducationLevel(edu), EnumSet.allOf(AccountantType.class)));
-                else if(isAccountantCampaign(id)) result.add(new Accountant(id, firstName,lastName, login, password, birthDate, employmentDate, salary, new EducationLevel(edu), EnumSet.of(AccountantType.ACCOUNTANT_CAMPAIGN)));
-                else if(isAccountantCompany(id)) result.add(new Accountant(id, firstName,lastName, login, password, birthDate, employmentDate, salary, new EducationLevel(edu), EnumSet.of(AccountantType.ACCOUNTANT_COMPANY)));
-                else if(isAccountantCompany(id)) result.add(new Accountant(id, firstName,lastName, login, password, birthDate, employmentDate, salary, new EducationLevel(edu), EnumSet.noneOf(AccountantType.class)));
+                if(isAccountantAIO(id)) {
+                    result.add(new Accountant(id, firstName,lastName, login, password, birthDate, employmentDate, salary, new EducationLevel(edu), EnumSet.allOf(AccountantType.class)));
+                }
+                else if(isAccountantCampaign(id)) {
+                    result.add(new Accountant(id, firstName,lastName, login, password, birthDate, employmentDate, salary, new EducationLevel(edu), EnumSet.of(AccountantType.ACCOUNTANT_CAMPAIGN)));
+                }
+                else if(isAccountantCompany(id)) {
+                    result.add(new Accountant(id, firstName,lastName, login, password, birthDate, employmentDate, salary, new EducationLevel(edu), EnumSet.of(AccountantType.ACCOUNTANT_COMPANY)));
+                }
             }
 
         } catch (SQLException e) {
@@ -470,6 +472,48 @@ public class Load {
         }
         return result;
     }
+    public static List<Plan> loadPlans() {
+        List<Plan> result = new ArrayList<>();
+        Connection connection;
+        try{
+            Class.forName(Utils.DRIVER_NAME);
+            connection = DriverManager.getConnection(Utils.URL, Utils.USR, Utils.PASS);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        ResultSet res = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            String sql = "SELECT * FROM " + Utils.CAMPAIGN_PLAN_TABLE;
+            pstmt = connection.prepareStatement(sql);
+
+            res = pstmt.executeQuery();
+
+            while(res.next()){
+                String id = res.getString("id");
+                int estimatedRate = res.getInt("estimatedRate");
+                String target = res.getString("target");
+                ChannelType communicationChannel= ChannelType.valueOf(res.getString("communicationChannel"));
+                result.add(new Plan(id, estimatedRate, target, communicationChannel, getCampaignIdByPlanId(id)));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                if (res != null) res.close();
+                if (pstmt != null) pstmt.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
     public static double loadAnnualBonusForTeam(TeamType type){
         Connection connection;
         try{
@@ -508,6 +552,7 @@ public class Load {
 
         return 0.0;
     }
+
     public static HashMap<EducationType, Double> loadEducationLevels(){
 
         HashMap<EducationType, Double> result = new HashMap<>();
@@ -588,6 +633,98 @@ public class Load {
             }
         }
     }
+    public static List<Campaign> loadCampaigns() {
+        List<Campaign> result = new ArrayList<>();
+        Connection connection;
+        try{
+            Class.forName(Utils.DRIVER_NAME);
+            connection = DriverManager.getConnection(Utils.URL, Utils.USR, Utils.PASS);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        ResultSet res = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            String sql = "SELECT * FROM " + Utils.CAMPAIGN_TABLE;
+            pstmt = connection.prepareStatement(sql);
+
+            res = pstmt.executeQuery();
+
+            while(res.next()){
+                String id = res.getString("id");
+                String name = res.getString("name");
+                Date startDate = res.getDate("startDate");
+                Date endDate = res.getDate("endDate");
+                int currentRate = res.getInt("currentRate");
+                boolean needsNewCreation = res.getBoolean("needsNewCreation");
+                SizeType size = SizeType.valueOf(res.getString("size"));
+                boolean isAnimated = res.getBoolean("isAnimated");
+                String creationDescription = res.getString("creationDescription");
+                StatusType status = StatusType.valueOf(res.getString("status"));
+                SettlementType settlementType = SettlementType.valueOf(res.getString("settlement"));
+                String plannerId = res.getString("plannerId");
+                String trafficId = res.getString("trafficId");
+                String clientId = res.getString("clientId");
+                String planId = res.getString("planId");
+                String designerId = res.getString("designerId");
+                String accountantId = res.getString("accountantId");
+                Campaign campaign = new Campaign(id, name,startDate, endDate, currentRate, needsNewCreation, size, isAnimated, creationDescription, status, settlementType, planId, clientId, plannerId, trafficId, designerId, accountantId);
+                result.add(campaign);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                if (res != null) res.close();
+                if (pstmt != null) pstmt.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+    private static String getCampaignIdByPlanId(String planId) {
+        String result = "";
+
+        Connection connection;
+        try{
+            Class.forName(Utils.DRIVER_NAME);
+            connection = DriverManager.getConnection(Utils.URL, Utils.USR, Utils.PASS);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        ResultSet res = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            String sql = "SELECT * FROM " + Utils.CAMPAIGN_TABLE + " WHERE planId = ?";
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, planId);
+
+            res = pstmt.executeQuery();
+
+            if(res.next()) return res.getString("id");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                if (res != null) res.close();
+                if (pstmt != null) pstmt.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+    }
     private static List<String> getClientsIdsForCompanyId(String companyId) {
         List<String> result = new ArrayList<>();
         Connection connection;
@@ -645,7 +782,7 @@ public class Load {
 
             res = pstmt.executeQuery();
 
-            if(res.next()) return true;
+            if(res.next()) return res.getInt(1) > 0;
             return false;
 
         } catch (SQLException e) {
@@ -680,7 +817,7 @@ public class Load {
 
             res = pstmt.executeQuery();
 
-            if(res.next()) return true;
+            if(res.next()) return res.getInt(1) > 0;
             return false;
 
         } catch (SQLException e) {
@@ -715,7 +852,7 @@ public class Load {
 
             res = pstmt.executeQuery();
 
-            if(res.next()) return true;
+            if(res.next()) return res.getInt(1) > 0;
             return false;
 
         } catch (SQLException e) {

@@ -17,8 +17,8 @@ public class Price {
         return prices;
     }
 
-    public void setPrices(HashMap<SettlementType, Double> prices) {
-        this.prices = prices;
+    public static void setPrices(HashMap<SettlementType, Double> p) {
+        prices = p;
     }
 
     public static double getPriceForSettlement(SettlementType type){

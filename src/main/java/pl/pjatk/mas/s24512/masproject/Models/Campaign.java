@@ -25,7 +25,9 @@ public class Campaign {
     private String designerId;
     private String accountantId;
 
-    public Campaign(String id, String name, Date startDate, Date endDate, int currentRate, boolean needsNewCreation, SizeType size, boolean isAnimated, String creationDesc, StatusType status, SettlementType settlement, String planId, String clientId, String plannerId) {
+    public Campaign(String id, String name, Date startDate, Date endDate, int currentRate,
+                    boolean needsNewCreation, SizeType size, boolean isAnimated, String creationDesc, StatusType status,
+                    SettlementType settlement, String planId, String clientId, String plannerId, String trafficId, String designerId, String accountantId) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
@@ -40,6 +42,9 @@ public class Campaign {
         this.planId = planId;
         this.clientId = clientId;
         this.plannerId = plannerId;
+        this.trafficId = trafficId;
+        this.designerId = designerId;
+        this.accountantId = accountantId;
     }
 
     public String getId() {

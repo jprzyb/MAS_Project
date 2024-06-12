@@ -50,8 +50,7 @@ public class CommunicationPlannerManager extends Employee{
         this.subordinatesIds = subordinatesIds;
     }
     public void removeSubordinate(String subordinateId){
-        subordinatesIds.remove(subordinateId);
-        Util.getCommunicationPlannerById(subordinateId).setManagerId("");
+        if(subordinatesIds.contains(subordinateId)) subordinatesIds.remove(subordinateId);
     }
     public void addSubordinate(String subordinateId){
         if(!subordinatesIds.contains(subordinateId)) {

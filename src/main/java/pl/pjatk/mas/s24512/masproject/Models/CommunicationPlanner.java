@@ -32,9 +32,9 @@ public class CommunicationPlanner extends Employee{
     }
 
     public void setManagerId(String managerId) {
-        Util.getCommunicationPlannerManagerById(this.managerId).removeSubordinate(this.getId());
+        if((managerId != null || !managerId.isEmpty()) && Util.getCommunicationPlannerManagerById(this.managerId) != null) Util.getCommunicationPlannerManagerById(this.managerId).removeSubordinate(this.getId());
         this.managerId = managerId;
-        Util.getCommunicationPlannerManagerById(managerId).addSubordinate(this.getId());
+        if(Util.getCommunicationPlannerManagerById(managerId) != null) Util.getCommunicationPlannerManagerById(managerId).addSubordinate(this.getId());
     }
 
     public List<String> getCampaignsIds() {
@@ -44,4 +44,5 @@ public class CommunicationPlanner extends Employee{
     public void setCampaignsIds(List<String> idsOfCampaigns) {
         this.campaignsIds = idsOfCampaigns;
     }
+
 }

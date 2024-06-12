@@ -108,8 +108,23 @@ public abstract class Employee {
         return employmentDate.getYear() - LocalDate.now().getYear();
     }
 
+//    @Override
+//    public String toString() {
+//        return firstName + " " + lastName;
+//    }
+
     @Override
     public String toString() {
-        return firstName + " " + lastName;
+        return "Employee{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", birthDate=" + birthDate +
+                ", employmentDate=" + employmentDate +
+                ", salary=" + salary +
+                ", educationLevel=" + educationLevel +
+                "}\n\n";
     }
 }
