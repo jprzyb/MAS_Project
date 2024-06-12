@@ -32,13 +32,14 @@ public class LoginController implements Initializable {
     }
     @FXML
     private void login(ActionEvent event){
-//        System.out.println("Logging in by: " + loginField.getText() + " " + passField.getText());
+        System.out.println("Logging in by: " + loginField.getText() + " " + passField.getText());
         if(!Util.validateLogin(loginField.getText(), passField.getText())){
             infoLabel.setText("Invalid cridentials!");
+            System.out.println("Invalid cridentials!");
             return;
         }
         String loggedOnId = Util.getEmployeeIdByLogin(loginField.getText());
-//        System.out.println(loggedOnId);
+        System.out.println(loggedOnId);
         if(loggedOnId.isEmpty()) {
             infoLabel.setText("Not implemented yet");
             return;

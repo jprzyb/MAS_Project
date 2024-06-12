@@ -107,14 +107,14 @@ public class Util {
 
     public static boolean validateLogin(String login, String pass){
         for(CommunicationPlanner p : communicationPlanners){
-//            System.out.println(p.getLogin() + " " + p.getPassword() + " == " + login + " " + pass);
+            System.out.println(p.getLogin() + " " + p.getPassword() + " == " + login + " " + pass);
             if(p.getLogin().equals(login) && p.getPassword().equals(pass)) {
                 LOGGED_ON_ID = p.getId();
                 return true;
             }
         }
         for(CommunicationPlannerManager p : communicationPlannerManagers){
-//            System.out.println(p.getLogin() + " " + p.getPassword() + " == " + login + " " + pass);
+            System.out.println(p.getLogin() + " " + p.getPassword() + " == " + login + " " + pass);
             if(p.getLogin().equals(login) && p.getPassword().equals(pass)) {
                 LOGGED_ON_ID = p.getId();
                 return true;
