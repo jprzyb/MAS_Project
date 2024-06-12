@@ -7,10 +7,12 @@ import pl.pjatk.mas.s24512.masproject.Models.enums.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Util {
     public static RoleType LOGGED_ON_ROLE;
+    public static String LOGGED_ON_ID;
     public static List<CommunicationPlanner> communicationPlanners;
     public static List<CommunicationPlannerManager> communicationPlannerManagers;
     public static List<Traffic> traffics;
@@ -89,6 +91,12 @@ public class Util {
         return "";
     }
 
+    public static Employee getEmployeeById(String id){
+        for(CommunicationPlanner p : communicationPlanners) if(p.getId().equals(id)) return p;
+        for(CommunicationPlannerManager p : communicationPlannerManagers) if(p.getId().equals(id)) return p;
+        return null;
+    }
+
     public static RoleType getRoleById(String id){
         for(CommunicationPlanner p : communicationPlanners){
             if(p.getId().equals(id)) return RoleType.COMMUNICATION_PLANNER;
@@ -100,12 +108,39 @@ public class Util {
     public static boolean validateLogin(String login, String pass){
         for(CommunicationPlanner p : communicationPlanners){
 //            System.out.println(p.getLogin() + " " + p.getPassword() + " == " + login + " " + pass);
-            if(p.getLogin().equals(login) && p.getPassword().equals(pass)) return true;
+            if(p.getLogin().equals(login) && p.getPassword().equals(pass)) {
+                LOGGED_ON_ID = p.getId();
+                return true;
+            }
         }
         for(CommunicationPlannerManager p : communicationPlannerManagers){
 //            System.out.println(p.getLogin() + " " + p.getPassword() + " == " + login + " " + pass);
-            if(p.getLogin().equals(login) && p.getPassword().equals(pass)) return true;
+            if(p.getLogin().equals(login) && p.getPassword().equals(pass)) {
+                LOGGED_ON_ID = p.getId();
+                return true;
+            }
         }
         return false;
+    }
+
+    public static List<Campaign> getCampaignsByPlannerId(String plannerId){
+        List<Campaign> result = new ArrayList<>();
+
+        for(Campaign c : campaigns) if(c.getPlannerId().equals(plannerId)) result.add(c);
+
+        return result;
+    }
+
+    public static List<String> getClientsIdsByCompanyId(String companyId){
+        List<String> result = new ArrayList<>();
+
+        for(Client c : clients) if(c.getCompanyId().equals(companyId)) result.add(c.getId());
+
+        return result;
+    }
+
+    public static CommunicationPlannerManager getManagerBySubordinateId(String subordinateId){
+        for(CommunicationPlannerManager c : communicationPlannerManagers) if(c.getSubordinatesIds().contains(subordinateId)) return c;
+        return null;
     }
 }

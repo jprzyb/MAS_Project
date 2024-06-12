@@ -6,13 +6,9 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CPMController implements Initializable {
+public class CPMController extends CPController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
-    @FXML
-    private void showNewCampaign(){
 
     }
     @FXML
@@ -20,15 +16,7 @@ public class CPMController implements Initializable {
 
     }
     @FXML
-    private void showMyInformation(){
-
-    }
-    @FXML
     private void setEmployeeSalary(){
-
-    }
-    @FXML
-    private void logout(){
 
     }
 }

@@ -26,14 +26,15 @@
       <ToolBar>
          <items>
             <Label fx:id="nameLabel2" text="Login:" textAlignment="CENTER" />
-            <TextField fx:id="loginField" disable="true" text="login" />
+            <TextField fx:id="loginField" text="login" />
+            <Button mnemonicParsing="false" onAction="#setLogin" text="Set login" />
          </items>
       </ToolBar>
       <ToolBar>
          <items>
             <Label fx:id="nameLabel3" text="Password:" textAlignment="CENTER" />
             <TextField fx:id="passwordField" text="pass" />
-            <Button mnemonicParsing="false" onAction="#setPassword" text="Change password" />
+            <Button mnemonicParsing="false" onAction="#setPassword" text="Set password" />
             <Label fx:id="passInfoLabel" textAlignment="CENTER" />
          </items>
       </ToolBar>
@@ -65,7 +66,7 @@
       </ToolBar>
       <ToolBar>
          <items>
-            <Label fx:id="nameLabel9" text="Level of eduction:" textAlignment="CENTER" />
+            <Label fx:id="nameLabel9" text="Level of education:" textAlignment="CENTER" />
             <TextField fx:id="levOfEduField" disable="true" text="none" />
          </items>
       </ToolBar>

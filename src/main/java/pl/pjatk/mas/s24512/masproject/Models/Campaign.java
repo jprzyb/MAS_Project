@@ -187,4 +187,8 @@ public class Campaign {
         return currentRate*Price.getPriceForSettlement(settlement);
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }
