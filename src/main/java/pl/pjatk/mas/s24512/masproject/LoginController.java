@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import pl.pjatk.mas.s24512.masproject.Models.enums.RoleType;
 
 import java.io.IOException;
@@ -63,6 +64,7 @@ public class LoginController implements Initializable {
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setOnHiding((WindowEvent) -> Util.saveData());
         stage.show();
     }
 
@@ -79,6 +81,7 @@ public class LoginController implements Initializable {
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setOnHiding((WindowEvent) -> Util.saveData());
         stage.show();
     }
 }

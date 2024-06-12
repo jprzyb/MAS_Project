@@ -21,27 +21,27 @@ CREATE TABLE Employee (
 INSERT INTO Employee (id, firstName, lastName, login, password, birthDate, employmentDate, salary, levelOfEducation)
 VALUES
 --     planners
-('beb99b51-cf72-47a2-aff0-24dc4c17cfe8', 'p1', 'p1', 'p1', 'a', '1980-05-15', '2010-06-01', 60000.00, 'DEGREE'),
-('c0edda08-6be2-46a2-b49d-9e891dd0327a', 'p2', 'p2', 'p2', 'a', '1985-07-20', '2012-09-15', 65000.00, NULL),
-('46e34848-f01a-4b54-8aa6-5d64a9431982', 'p3', 'p3', 'p3', 'a', '1990-11-30', '2015-03-25', 70000.00,'MASTER_DEGREE'),
+('beb99b51-cf72-47a2-aff0-24dc4c17cfe8', 'Jan', 'Kowalski', 'jkow89', 'a', '1980-05-15', '2010-06-01', 60000.00, 'DEGREE'),
+('c0edda08-6be2-46a2-b49d-9e891dd0327a', 'Anna', 'Nowak', 'anow22', 'a', '1985-07-20', '2012-09-15', 65000.00, NULL),
+('46e34848-f01a-4b54-8aa6-5d64a9431982', 'Piotr', 'Wiśniewski', 'pwis77', 'a', '1990-11-30', '2015-03-25', 70000.00,'MASTER_DEGREE'),
 --     planner manager
-('bc6b671a-1978-4ba1-91ff-0e7c98eaff8d', 'pm1', 'pm1', 'pm1', 'a', '1983-06-08', '2009-10-30', 58000.00, 'MASTER_DEGREE'),
+('bc6b671a-1978-4ba1-91ff-0e7c98eaff8d', 'Katarzyna', 'Wójcik', 'kwoj31', 'a', '1983-06-08', '2009-10-30', 58000.00, 'MASTER_DEGREE'),
 --     traffics
-('9ff2c4d0-17bc-4f10-9f3b-9f65d547f49b', 't1', 't1', 't1', 'a', '1986-04-03', '2017-05-20', 72000.00, NULL),
-('83c3a964-b94b-4d67-96e6-d01239946f7d', 't2', 't2', 't2', 'a', '1985-07-20', '2012-09-15', 65000.00,'TECHNICAN'),
-('7fee0d2e-751b-449e-b6f8-491a2210dd1d', 't3', 't3', 't3', 'a', '1990-11-30', '2015-03-25', 70000.00, 'DEGREE'),
+('9ff2c4d0-17bc-4f10-9f3b-9f65d547f49b', 'Tomasz', 'Kaczmarek', 'tkac56', 'a', '1986-04-03', '2017-05-20', 72000.00, NULL),
+('83c3a964-b94b-4d67-96e6-d01239946f7d', 'Małgorzata', 'Zielińska', 'mzie44', 'a', '1985-07-20', '2012-09-15', 65000.00,'TECHNICAN'),
+('7fee0d2e-751b-449e-b6f8-491a2210dd1d', 'Michał', 'Nowicki', 'mnow63', 'a', '1990-11-30', '2015-03-25', 70000.00, 'DEGREE'),
 --     traffic manager
-('e24b34c1-80f4-423f-b042-e3a2c19f4d81', 'tm1', 'tm1', 'tm1', 'a', '1992-03-10', '2018-08-10', 55000.00,'DEGREE'),
+('e24b34c1-80f4-423f-b042-e3a2c19f4d81', 'Agnieszka', 'Lewandowska', 'alew95', 'a', '1992-03-10', '2018-08-10', 55000.00,'DEGREE'),
 --     traffic AIO
-('e5bbf396-6e7b-4e58-9f69-b5d6a6dd5b6b', 'ta1', 'ta1', 'ta1', 'a', '1994-08-12', '2016-11-25', 62000.00, 'TECHNICAN'),
+('e5bbf396-6e7b-4e58-9f69-b5d6a6dd5b6b', 'Jakub', 'Szymański', 'jszy17', 'a', '1994-08-12', '2016-11-25', 62000.00, 'TECHNICAN'),
 --     Designer
-('7cb68ec3-d76a-4314-8e88-4a3c4b4eab64', 'd1', 'd1', 'd1', 'a', '1989-02-28', '2013-07-15', 68000.00, 'MASTER_DEGREE'),
+('7cb68ec3-d76a-4314-8e88-4a3c4b4eab64', 'Magdalena', 'Dąbrowska', 'mdab28', 'a', '1989-02-28', '2013-07-15', 68000.00, 'MASTER_DEGREE'),
 --     Campaign accountant
-('b3a1f73b-c90a-4dbd-b729-4d1f166982fc', 'cca1', 'cca1', 'cca1', 'a', '1997-05-20', '2019-09-08', 58000.00, NULL),
+('b3a1f73b-c90a-4dbd-b729-4d1f166982fc', 'Paweł', 'Pawlak', 'ppaw81', 'a', '1997-05-20', '2019-09-08', 58000.00, NULL),
 --     Company accountant
-('9327e2d3-8920-4841-95c2-fc9200b748e8', 'cco1', 'cco1', 'cco1', 'a', '1990-11-15', '2012-04-30', 72000.00,'DEGREE'),
+('9327e2d3-8920-4841-95c2-fc9200b748e8', 'Ewa', 'Kwiatkowska', 'ekwi54', 'a', '1990-11-15', '2012-04-30', 72000.00,'DEGREE'),
 --     Company/Campaign accountant
-('28a91aa2-8100-4c18-91e2-7e5d6761e013', 'cocaa', 'cocaa', 'cocaa', 'a', '1993-10-05', '2015-02-20', 65000.00,'TECHNICAN');
+('28a91aa2-8100-4c18-91e2-7e5d6761e013', 'Grzegorz', 'Kozłowski', 'gkoz37', 'a', '1993-10-05', '2015-02-20', 65000.00,'TECHNICAN');
 
 
 -- Creating CampaignPlan Table

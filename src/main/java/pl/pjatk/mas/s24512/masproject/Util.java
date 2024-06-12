@@ -143,4 +143,12 @@ public class Util {
         for(CommunicationPlannerManager c : communicationPlannerManagers) if(c.getSubordinatesIds().contains(subordinateId)) return c;
         return null;
     }
+
+    public static List<CommunicationPlanner> getSubordinatesByManager(CommunicationPlannerManager cpm) {
+        List<CommunicationPlanner> result = new ArrayList<>();
+
+        for (String id : cpm.getSubordinatesIds()) result.add(getCommunicationPlannerById(id));
+
+        return result;
+    }
 }

@@ -239,7 +239,7 @@ public class Save {
             pstmt.setString(2, company.getName());
             pstmt.setString(3, company.getAdress());
             pstmt.setString(4, company.getAccountNumber());
-            pstmt.setString(4, String.valueOf(company.isRegular()));
+            pstmt.setString(5, String.valueOf(company.isRegular()));
 
             pstmt.executeUpdate();
         } catch (SQLException e) {

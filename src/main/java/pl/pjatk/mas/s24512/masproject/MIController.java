@@ -49,7 +49,8 @@ public class MIController implements Initializable {
         loginField.setText(e.getLogin());
         passwordField.setText(e.getPassword());
         CommunicationPlannerManager m = Util.getManagerBySubordinateId(e.getId());
-        managerField.setText(m.getFirstName() + " " + m.getLastName());
+        if(m == null) managerField.setText("N/A");
+        else managerField.setText(m.getFirstName() + " " + m.getLastName());
         birthDateField.setText(String.valueOf(e.getBirthDate()));
         employmentDateField.setText(String.valueOf(e.getEmploymentDate()));
         salaryBaseField.setText(String.valueOf(e.getSalary()));

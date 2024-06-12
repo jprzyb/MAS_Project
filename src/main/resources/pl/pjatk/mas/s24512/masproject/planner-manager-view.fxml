@@ -33,7 +33,7 @@
             <VBox alignment="TOP_CENTER">
                <children>
                   <Label text="Subordinates" />
-                  <ListView fx:id="employeeList" />
+                  <ListView fx:id="subordinates" />
                </children>
             </VBox>
          </children>
