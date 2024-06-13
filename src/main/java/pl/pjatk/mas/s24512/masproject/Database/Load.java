@@ -670,7 +670,8 @@ public class Load {
                 String planId = res.getString("planId");
                 String designerId = res.getString("designerId");
                 String accountantId = res.getString("accountantId");
-                Campaign campaign = new Campaign(id, name,startDate, endDate, currentRate, needsNewCreation, size, isAnimated, creationDescription, status, settlementType, planId, clientId, plannerId, trafficId, designerId, accountantId);
+                String description = res.getString("description");
+                Campaign campaign = new Campaign(id, name,startDate, endDate, currentRate, needsNewCreation, size, isAnimated, creationDescription, status, settlementType, planId, clientId, plannerId, trafficId, designerId, accountantId, description);
                 result.add(campaign);
             }
 

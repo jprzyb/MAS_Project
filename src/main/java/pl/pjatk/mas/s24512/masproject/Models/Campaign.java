@@ -24,10 +24,11 @@ public class Campaign {
     private String trafficId;
     private String designerId;
     private String accountantId;
+    private String description;
 
     public Campaign(String id, String name, Date startDate, Date endDate, int currentRate,
                     boolean needsNewCreation, SizeType size, boolean isAnimated, String creationDesc, StatusType status,
-                    SettlementType settlement, String planId, String clientId, String plannerId, String trafficId, String designerId, String accountantId) {
+                    SettlementType settlement, String planId, String clientId, String plannerId, String trafficId, String designerId, String accountantId, String description) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
@@ -45,6 +46,7 @@ public class Campaign {
         this.trafficId = trafficId;
         this.designerId = designerId;
         this.accountantId = accountantId;
+        this.description = description;
     }
 
     public String getId() {
@@ -181,6 +183,14 @@ public class Campaign {
 
     public void setAccountantId(String accountantId) {
         this.accountantId = accountantId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public double calcCost(){

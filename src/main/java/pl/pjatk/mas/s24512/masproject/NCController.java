@@ -90,7 +90,7 @@ public class NCController implements Initializable {
                     sizeChoiceBox.getSelectionModel().getSelectedItem(), animatedCheckBox.isSelected(),
                     (newCreationCheckBox.isSelected() ? creationDescriptionField.getText() : ""), StatusType.PLANNED,
                     methodOfSettlement.getSelectionModel().getSelectedItem(), plan.getId(), clientChoiceBox.getSelectionModel().getSelectedItem().getId(),
-                    Util.LOGGED_ON_ID, "", "", "");
+                    Util.LOGGED_ON_ID, "", "", "", descriptionField.getText());
 
             Util.campaigns.add(campaign);
             Util.plans.add(plan);

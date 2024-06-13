@@ -299,7 +299,7 @@ public class Save {
         try {
             String sql = "Update " + Utils.CAMPAIGN_TABLE +
                     " SET startDate = ?, endDate = ?, currentRate = ?, needsNewCreation = ?, size = ?, isAnimated = ?, creationDescription = ?, status = ?, " +
-                    "settlement = ?, plannerId = ?, trafficId = ?, planId = ?, designerId = ?, accountantId = ?" +
+                    "settlement = ?, plannerId = ?, trafficId = ?, planId = ?, designerId = ?, accountantId = ?, description = ?" +
                     " WHERE id = ?";
             pstmt = connection.prepareStatement(sql);
             pstmt.setDate(1, campaign.getStartDate());
@@ -316,7 +316,8 @@ public class Save {
             pstmt.setString(12, campaign.getPlanId());
             pstmt.setString(13, campaign.getDesignerId());
             pstmt.setString(14, campaign.getAccountantId());
-            pstmt.setString(15, campaign.getId());
+            pstmt.setString(15, campaign.getDescription());
+            pstmt.setString(16, campaign.getId());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -341,8 +342,8 @@ public class Save {
         PreparedStatement pstmt = null;
 
         try {
-            String sql = "INSERT INTO Campaign (id, name, startDate, endDate, currentRate, needsNewCreation, size, isAnimated, creationDescription , status, settlement, plannerId, trafficId, clientId, planId, designerId, accountantId) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Campaign (id, name, startDate, endDate, currentRate, needsNewCreation, size, isAnimated, creationDescription , status, settlement, plannerId, trafficId, clientId, planId, designerId, accountantId, description) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?)";
             pstmt = connection.prepareStatement(sql);
 
             pstmt.setString(1, campaign.getId());
@@ -362,6 +363,7 @@ public class Save {
             pstmt.setString(15, campaign.getPlanId());
             pstmt.setString(16, campaign.getDesignerId());
             pstmt.setString(17, campaign.getAccountantId());
+            pstmt.setString(18, campaign.getDescription());
 
             pstmt.executeUpdate();
         } catch (SQLException e) {

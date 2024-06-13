@@ -233,14 +233,15 @@ CREATE TABLE Campaign (
                           clientId VARCHAR(50) NOT NULL,
                           planId VARCHAR(50) NOT NULL,
                           designerId VARCHAR(50),
-                          accountantId VARCHAR(50)
+                          accountantId VARCHAR(50),
+                          description VARCHAR(255)
 );
 
 -- Data insertion to Campaign
-INSERT INTO Campaign (id, name, startDate, endDate, currentRate, needsNewCreation, size, isAnimated, creationDescription, status, settlement, plannerId, trafficId, clientId, planId, designerId, accountantId)
+INSERT INTO Campaign (id, name, startDate, endDate, currentRate, needsNewCreation, size, isAnimated, creationDescription, status, settlement, plannerId, trafficId, clientId, planId, designerId, accountantId, description)
 VALUES
-    ('0d546278-05c5-47a8-9010-e915ea4a5afb', 'Campaign One', '2024-01-01', '2024-06-01', 100, 'true', 'FULL_PAGE', 'false', 'Description of Campaign One', 'PLANNED', 'CPC' ,'46e34848-f01a-4b54-8aa6-5d64a9431982', NULL, 'b1641f49-147e-4626-b79e-2b2c6c1960b7', '4524ae45-e569-433a-8ab6-610b828d9e0b', NULL, NULL),
-    ('ec1ffaf1-6593-489a-b0a4-dfa77adb1cc2', 'Campaign Two', '2024-02-01', '2024-07-01', 150, 'false', 'BOTTOM_BANNER', 'true', 'Description of Campaign Two', 'IN_PROGRESS','CPM' , '46e34848-f01a-4b54-8aa6-5d64a9431982', NULL, 'c1f8254d-37f6-4ff5-bb55-03dbf95e42a1', '26101caa-01ab-4ed3-b9a5-6033e8ba0769', NULL, NULL);
+    ('0d546278-05c5-47a8-9010-e915ea4a5afb', 'Campaign One', '2024-01-01', '2024-06-01', 100, 'true', 'FULL_PAGE', 'false', 'Description of Campaign One', 'PLANNED', 'CPC' ,'46e34848-f01a-4b54-8aa6-5d64a9431982', NULL, 'b1641f49-147e-4626-b79e-2b2c6c1960b7', '4524ae45-e569-433a-8ab6-610b828d9e0b', NULL, NULL, 'some desc'),
+    ('ec1ffaf1-6593-489a-b0a4-dfa77adb1cc2', 'Campaign Two', '2024-02-01', '2024-07-01', 150, 'false', 'BOTTOM_BANNER', 'true', 'Description of Campaign Two', 'IN_PROGRESS','CPM' , '46e34848-f01a-4b54-8aa6-5d64a9431982', NULL, 'c1f8254d-37f6-4ff5-bb55-03dbf95e42a1', '26101caa-01ab-4ed3-b9a5-6033e8ba0769', NULL, NULL, 'some desc');
 
 -- Creating AnnualBonus table
 CREATE TABLE AnnualBonus (

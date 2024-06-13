@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import pl.pjatk.mas.s24512.masproject.Models.Campaign;
 
 import java.net.URL;
@@ -36,10 +38,13 @@ public class CPController implements Initializable {
         LoginController.setToLogOffScene(event);
     }
 
-    private void loadLists(){
-        if (campaignList != null){
-            campaignList.getItems().removeAll(campaignList.getItems());
-            campaignList.getItems().addAll(Util.getCampaignsByPlannerId(Util.LOGGED_ON_ID));
+    @FXML
+    private void handleDoubleClick(MouseEvent event){
+        if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+            Campaign selectedItem = campaignList.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                CIController.showCampaignDetailsWindow(campaignList.getSelectionModel().getSelectedItem());
+            }
         }
     }
 
@@ -49,5 +54,11 @@ public class CPController implements Initializable {
     }
     public void afterMyInfoClose(){
         myInfoButton.setDisable(false);
+    }
+    private void loadLists(){
+        if (campaignList != null){
+            campaignList.getItems().removeAll(campaignList.getItems());
+            campaignList.getItems().addAll(Util.getCampaignsByPlannerId(Util.LOGGED_ON_ID));
+        }
     }
 }

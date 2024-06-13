@@ -27,7 +27,7 @@
             <VBox alignment="TOP_CENTER">
                <children>
                   <Label text="Campaigns" />
-                  <ListView fx:id="campaignList" />
+                  <ListView fx:id="campaignList" onMouseClicked="#handleDoubleClick" />
                </children>
             </VBox>
             <VBox alignment="TOP_CENTER">
