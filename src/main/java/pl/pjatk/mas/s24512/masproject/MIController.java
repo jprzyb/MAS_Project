@@ -41,6 +41,13 @@ public class MIController implements Initializable {
     TextField salaryFinalField;
     @FXML
     TextField levOfEduField;
+
+    /**
+     * Initializes the controller class.
+     *
+     * @param url            The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Employee e = Util.getEmployeeById(Util.LOGGED_ON_ID);
@@ -49,7 +56,7 @@ public class MIController implements Initializable {
         loginField.setText(e.getLogin());
         passwordField.setText(e.getPassword());
         CommunicationPlannerManager m = Util.getManagerBySubordinateId(e.getId());
-        if(m == null) managerField.setText("N/A");
+        if (m == null) managerField.setText("N/A");
         else managerField.setText(m.getFirstName() + " " + m.getLastName());
         birthDateField.setText(String.valueOf(e.getBirthDate()));
         employmentDateField.setText(String.valueOf(e.getEmploymentDate()));
@@ -57,22 +64,40 @@ public class MIController implements Initializable {
         salaryFinalField.setText(String.valueOf(e.getSalary() * e.getEducationLevel().getFactor()));
         levOfEduField.setText(String.valueOf(e.getEducationLevel().getEducationType()));
     }
+
+    /**
+     * Sets the password for the logged-in employee.
+     */
     @FXML
-    private void setPassword(){
+    private void setPassword() {
         Util.getEmployeeById(Util.LOGGED_ON_ID).setPassword(passwordField.getText());
     }
 
+    /**
+     * Sets the login for the logged-in employee.
+     */
     @FXML
-    private void setLogin(){
+    private void setLogin() {
         Util.getEmployeeById(Util.LOGGED_ON_ID).setLogin(loginField.getText());
     }
+
+    /**
+     * Handles the 'OK' button click to close the window.
+     *
+     * @param event The action event triggered by clicking the 'OK' button.
+     */
     @FXML
-    private void onOkClick(ActionEvent event){
-        Stage  stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+    private void onOkClick(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
 
-    public static void showMyInformation(CPController parent){
+    /**
+     * Shows the window with logged-in employee information.
+     *
+     * @param parent The parent controller initiating the display of the information window.
+     */
+    public static void showMyInformation(CPController parent) {
         try {
             FXMLLoader loader = new FXMLLoader(MIController.class.getResource("my-information-view.fxml"));
             Parent root = loader.load();

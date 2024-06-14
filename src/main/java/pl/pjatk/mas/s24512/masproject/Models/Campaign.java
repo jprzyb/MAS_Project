@@ -6,26 +6,52 @@ import pl.pjatk.mas.s24512.masproject.Models.enums.SettlementType;
 
 import java.sql.Date;
 
+/**
+ * The Campaign class represents a campaign in the system.
+ * It contains details about the campaign's timeline, status, and related entities.
+ */
 public class Campaign {
-    private String id;
-    private String name;
-    private Date startDate;
-    private Date endDate;
-    private int currentRate;
-    private boolean needsNewCreation;
-    private SizeType size;
-    private boolean isAnimated;
-    private String creationDesc;
-    private StatusType status;
-    private SettlementType settlement;
-    private String planId;
-    private String clientId;
-    private String plannerId;
-    private String trafficId;
-    private String designerId;
-    private String accountantId;
-    private String description;
+    private String id; // Unique identifier for the campaign
+    private String name; // Name of the campaign
+    private Date startDate; // Start date of the campaign
+    private Date endDate; // End date of the campaign
+    private int currentRate; // Current rate of the campaign
+    private boolean needsNewCreation; // Flag indicating if new creation is needed
+    private SizeType size; // Size of the campaign
+    private boolean isAnimated; // Flag indicating if the campaign is animated
+    private String creationDesc; // Description of the creation process
+    private StatusType status; // Status of the campaign
+    private SettlementType settlement; // Settlement type of the campaign
+    private String planId; // ID of the associated plan
+    private String clientId; // ID of the client
+    private String plannerId; // ID of the planner
+    private String trafficId; // ID of the traffic manager
+    private String designerId; // ID of the designer
+    private String accountantId; // ID of the accountant
+    private String description; // Additional description of the campaign
 
+    /**
+     * Constructor for the Campaign class.
+     *
+     * @param id               Unique identifier for the campaign
+     * @param name             Name of the campaign
+     * @param startDate        Start date of the campaign
+     * @param endDate          End date of the campaign
+     * @param currentRate      Current rate of the campaign
+     * @param needsNewCreation Flag indicating if new creation is needed
+     * @param size             Size of the campaign
+     * @param isAnimated       Flag indicating if the campaign is animated
+     * @param creationDesc     Description of the creation process
+     * @param status           Status of the campaign
+     * @param settlement       Settlement type of the campaign
+     * @param planId           ID of the associated plan
+     * @param clientId         ID of the client
+     * @param plannerId        ID of the planner
+     * @param trafficId        ID of the traffic manager
+     * @param designerId       ID of the designer
+     * @param accountantId     ID of the accountant
+     * @param description      Additional description of the campaign
+     */
     public Campaign(String id, String name, Date startDate, Date endDate, int currentRate,
                     boolean needsNewCreation, SizeType size, boolean isAnimated, String creationDesc, StatusType status,
                     SettlementType settlement, String planId, String clientId, String plannerId, String trafficId, String designerId, String accountantId, String description) {
@@ -48,6 +74,8 @@ public class Campaign {
         this.accountantId = accountantId;
         this.description = description;
     }
+
+    // Getters and setters for all fields
 
     public String getId() {
         return id;
@@ -193,8 +221,16 @@ public class Campaign {
         this.description = description;
     }
 
-    public double calcCost(){
-        return currentRate*Price.getPriceForSettlement(settlement);
+    /**
+     * Method to calculate the cost of the campaign based on the current rate and settlement type.
+     * If type is CPM it divides result by 1000.
+     *
+     * @return Calculated cost of the campaign
+     */
+    public double calcCost() {
+        double result = currentRate * Price.getPriceForSettlement(settlement);
+        if(settlement.equals(SettlementType.CPM)) result /= 1000;
+        return result;
     }
 
     @Override

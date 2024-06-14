@@ -43,27 +43,10 @@ VALUES
 --     Company/Campaign accountant
 ('28a91aa2-8100-4c18-91e2-7e5d6761e013', 'Grzegorz', 'Kozłowski', 'gkoz37', 'a', '1993-10-05', '2015-02-20', 65000.00,'TECHNICAN');
 
-
--- Creating CampaignPlan Table
-CREATE TABLE CampaignPlan (
-                              id NVARCHAR(50) PRIMARY KEY,
-                              estimatedRate INT NOT NULL,
-                              target NVARCHAR(100) NOT NULL,
-                              communicationChannel NVARCHAR(50) NOT NULL
-);
-
--- Data insertion to CampaignPlan
-INSERT INTO CampaignPlan (id, estimatedRate, target, communicationChannel)
-VALUES
-    ('4524ae45-e569-433a-8ab6-610b828d9e0b', 100, 'Rolnicy', 'EMAIL'),
-    ('5c34a3c0-37ae-413e-9b16-98ffeec262ee', 150, 'Gracze', 'SMS'),
-    ('26101caa-01ab-4ed3-b9a5-6033e8ba0769', 200, 'Biznesmeni', 'WEBSITES'),
-    ('9e2748e0-bc60-4eb0-8a3e-32b0df942aea', 120, 'Studenci', 'APPLICATIONS');
-
 -- Creating CommunicationPlanner Table
 CREATE TABLE CommunicationPlanner (
-    id NVARCHAR(50) PRIMARY KEY,
-    managerId NVARCHAR(50)
+                                      id NVARCHAR(50) PRIMARY KEY,
+                                      managerId NVARCHAR(50)
 );
 
 -- Data insertion to CommunicationPlanner
@@ -240,8 +223,26 @@ CREATE TABLE Campaign (
 -- Data insertion to Campaign
 INSERT INTO Campaign (id, name, startDate, endDate, currentRate, needsNewCreation, size, isAnimated, creationDescription, status, settlement, plannerId, trafficId, clientId, planId, designerId, accountantId, description)
 VALUES
-    ('0d546278-05c5-47a8-9010-e915ea4a5afb', 'Campaign One', '2024-01-01', '2024-06-01', 100, 'true', 'FULL_PAGE', 'false', 'Description of Campaign One', 'PLANNED', 'CPC' ,'46e34848-f01a-4b54-8aa6-5d64a9431982', NULL, 'b1641f49-147e-4626-b79e-2b2c6c1960b7', '4524ae45-e569-433a-8ab6-610b828d9e0b', NULL, NULL, 'some desc'),
-    ('ec1ffaf1-6593-489a-b0a4-dfa77adb1cc2', 'Campaign Two', '2024-02-01', '2024-07-01', 150, 'false', 'BOTTOM_BANNER', 'true', 'Description of Campaign Two', 'IN_PROGRESS','CPM' , '46e34848-f01a-4b54-8aa6-5d64a9431982', NULL, 'c1f8254d-37f6-4ff5-bb55-03dbf95e42a1', '26101caa-01ab-4ed3-b9a5-6033e8ba0769', NULL, NULL, 'some desc');
+    ('0d546278-05c5-47a8-9010-e915ea4a5afb', 'Campaign One', '2024-01-01', '2024-06-01', 100000, 'true', 'FULL_PAGE', 'false', 'Description of Campaign One', 'PLANNED', 'CPM' ,'46e34848-f01a-4b54-8aa6-5d64a9431982', NULL, 'c1f8254d-37f6-4ff5-bb55-03dbf95e42a1', '4524ae45-e569-433a-8ab6-610b828d9e0b', NULL, NULL, 'some desc'),
+    ('ec1ffaf1-6593-489a-b0a4-dfa77adb1cc2', 'Campaign Two', '2024-02-01', '2024-07-01', 15000, 'false', 'BOTTOM_BANNER', 'true', 'Description of Campaign Two', 'IN_PROGRESS','CPC' , '46e34848-f01a-4b54-8aa6-5d64a9431982', NULL, 'b1641f49-147e-4626-b79e-2b2c6c1960b7', '5c34a3c0-37ae-413e-9b16-98ffeec262ee', NULL, NULL, 'some desc'),
+    ('3bfc3e0f-9f63-4c6b-bf7b-9c4d2798b6a8', 'Campaign Three', '2024-03-01', '2024-08-01', 300, 'true', 'BANNER', 'false', 'Description of Campaign Three', 'PLANNED', 'CPU', '46e34848-f01a-4b54-8aa6-5d64a9431982', NULL, 'e7381df8-ffbb-4380-86b5-dcd7a7f0e382', '26101caa-01ab-4ed3-b9a5-6033e8ba0769', NULL, NULL, 'some desc'),
+    ('fda5c12b-561c-4f53-b598-9b37bc317f6a', 'Campaign Four', '2024-04-01', '2024-09-01', 450000, 'false', 'FULL_PAGE', 'true', 'Description of Campaign Four', 'IN_PROGRESS', 'CPM', '46e34848-f01a-4b54-8aa6-5d64a9431982', NULL, 'f4cb1a32-88b2-41fb-b90e-869d28fe409c', '9e2748e0-bc60-4eb0-8a3e-32b0df942aea', NULL, NULL, 'some desc');
+
+-- Creating CampaignPlan Table
+CREATE TABLE CampaignPlan (
+                              id NVARCHAR(50) PRIMARY KEY,
+                              estimatedRate INT NOT NULL,
+                              target NVARCHAR(100) NOT NULL,
+                              communicationChannel NVARCHAR(50) NOT NULL
+);
+
+-- Data insertion to CampaignPlan
+INSERT INTO CampaignPlan (id, estimatedRate, target, communicationChannel)
+VALUES
+    ('4524ae45-e569-433a-8ab6-610b828d9e0b', 1000000, 'Rolnicy', 'EMAIL'),
+    ('5c34a3c0-37ae-413e-9b16-98ffeec262ee', 50000, 'Gracze', 'SMS'),
+    ('26101caa-01ab-4ed3-b9a5-6033e8ba0769', 1000, 'Biznesmeni', 'WEBSITES'),
+    ('9e2748e0-bc60-4eb0-8a3e-32b0df942aea', 1500000, 'Studenci', 'APPLICATIONS');
 
 -- Creating AnnualBonus table
 CREATE TABLE AnnualBonus (

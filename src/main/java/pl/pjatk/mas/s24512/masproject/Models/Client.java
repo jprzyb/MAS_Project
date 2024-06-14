@@ -2,14 +2,28 @@ package pl.pjatk.mas.s24512.masproject.Models;
 
 import pl.pjatk.mas.s24512.masproject.Util;
 
+/**
+ * The Client class represents a client in the system.
+ * It contains details about the client's personal and company-related information.
+ */
 public class Client {
-    private String id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phoneNumber;
-    private String companyId;
+    private String id; // Unique identifier for the client
+    private String firstName; // First name of the client
+    private String lastName; // Last name of the client
+    private String email; // Email address of the client
+    private String phoneNumber; // Phone number of the client
+    private String companyId; // ID of the company associated with the client
 
+    /**
+     * Constructor for the Client class.
+     *
+     * @param id          Unique identifier for the client
+     * @param firstName   First name of the client
+     * @param lastName    Last name of the client
+     * @param email       Email address of the client
+     * @param phoneNumber Phone number of the client
+     * @param companyId   ID of the company associated with the client
+     */
     public Client(String id, String firstName, String lastName, String email, String phoneNumber, String companyId) {
         this.id = id;
         this.firstName = firstName;
@@ -18,6 +32,8 @@ public class Client {
         this.phoneNumber = phoneNumber;
         this.companyId = companyId;
     }
+
+    // Getters and setters for all fields
 
     public String getId() {
         return id;
@@ -63,17 +79,27 @@ public class Client {
         return companyId;
     }
 
+    /**
+     * Setter for the companyId.
+     * Ensures the client is removed from the old company and added to the new company.
+     *
+     * @param companyId ID of the new company
+     */
     public void setCompanyId(String companyId) {
-        // removing from old
-        if(Util.getCompanyById(this.companyId).getSubordinatesIds().contains(this.id)) Util.getCompanyById(companyId).removeSubordinate(this.id);
-        // adding to new
-        if(!Util.getCompanyById(companyId).getSubordinatesIds().contains(this.id)) Util.getCompanyById(companyId).addSubordinate(this.id);
-        // set
+        // Remove client from the old company
+        if (Util.getCompanyById(this.companyId).getSubordinatesIds().contains(this.id)) {
+            Util.getCompanyById(this.companyId).removeSubordinate(this.id);
+        }
+        // Add client to the new company
+        if (!Util.getCompanyById(companyId).getSubordinatesIds().contains(this.id)) {
+            Util.getCompanyById(companyId).addSubordinate(this.id);
+        }
+        // Set the new company ID
         this.companyId = companyId;
     }
 
     @Override
     public String toString() {
-        return firstName +" "+ lastName;
+        return firstName + " " + lastName;
     }
 }

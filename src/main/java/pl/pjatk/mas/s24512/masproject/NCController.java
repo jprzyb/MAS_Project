@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
 import java.util.UUID;
 
 public class NCController implements Initializable {
+
     @FXML
     TextField idField;
     @FXML
@@ -58,6 +59,13 @@ public class NCController implements Initializable {
     Label infoLabel;
     @FXML
     Button newClientButton;
+
+    /**
+     * Initializes the controller class.
+     *
+     * @param url            The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         newCreationCheckBox.setSelected(false);
@@ -70,19 +78,35 @@ public class NCController implements Initializable {
         communicationChannelChoiceBox.getItems().addAll(EnumSet.allOf(ChannelType.class));
         clientChoiceBox.getItems().addAll(Util.clients);
     }
+
+    /**
+     * Toggles the disable property of the creation description field based on the new creation checkbox selection.
+     */
     @FXML
-    private void setCrationDescriptionFieldEdition(){
+    private void setCrationDescriptionFieldEdition() {
         creationDescriptionField.setDisable(!newCreationCheckBox.isSelected());
     }
+
+    /**
+     * Closes the current window on cancel button click.
+     *
+     * @param event The action event triggered by clicking the cancel button.
+     */
     @FXML
-    private void onCancelButtonClick(ActionEvent event){
-        Stage  stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+    private void onCancelButtonClick(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
+
+    /**
+     * Handles saving the new campaign data entered by the user.
+     *
+     * @param event The action event triggered by clicking the save button.
+     */
     @FXML
-    private void onSaveButtonClick(ActionEvent event){
+    private void onSaveButtonClick(ActionEvent event) {
         String validationResult = validateInput();
-        if(validationResult.equals("true")){
+        if (validationResult.equals("true")) {
             Plan plan = new Plan(String.valueOf(UUID.randomUUID()), Integer.parseInt(estimationsField.getText()),
                     targetField.getText(), communicationChannelChoiceBox.getSelectionModel().getSelectedItem(), idField.getText());
             Campaign campaign = new Campaign(idField.getText(), nameField.getText(), new Date(startDateDatePicker.getValue().toEpochDay()),
@@ -95,21 +119,86 @@ public class NCController implements Initializable {
             Util.campaigns.add(campaign);
             Util.plans.add(plan);
             onCancelButtonClick(event);
-        }else {
+        } else {
             infoLabel.setText(validationResult);
         }
     }
 
+    /**
+     * Handles the action when the user wants to add a new client for the campaign.
+     */
     @FXML
-    private void onNewClientAction(){
+    private void onNewClientAction() {
         onNewClientSelected();
         showNewClient();
     }
-    private void showNewClient(){
+
+    /**
+     * Shows the window for adding a new client to the system.
+     */
+    private void showNewClient() {
         NCliController.showNewClientWindow(this);
     }
 
-    public static void showNewCampaign(CPController parent){
+    /**
+     * Validates the user input for creating a new campaign.
+     *
+     * @return A string indicating validation result ("true" for valid input, error message otherwise).
+     */
+    private String validateInput() {
+        if (nameField.getText() == null || nameField.getText().isEmpty()) return "Campaign name is empty.";
+        else if (startDateDatePicker.getValue().isBefore(LocalDate.now())) return "Invalid start date.";
+        else if (endDateDatePicker.getValue().isBefore(startDateDatePicker.getValue())) return "Invalid end date.";
+        else if (methodOfSettlement.getValue() == null) return "Invalid method of settlement.";
+        else if (!isInteger(estimationsField.getText())) return "Invalid estimations (should be integer).";
+        else if (sizeChoiceBox.getValue() == null) return "Invalid creation size.";
+        else if (communicationChannelChoiceBox.getValue() == null) return "Invalid communication channel.";
+        else if (clientChoiceBox.getValue() == null) return "Invalid client.";
+        else if (descriptionField.getText() == null || descriptionField.getText().isEmpty()) return "Description is required.";
+        else if (targetField.getText() == null || targetField.getText().isEmpty()) return "Target description is required.";
+        return "true";
+    }
+
+    /**
+     * Checks if a given string can be parsed into an integer.
+     *
+     * @param value The string value to check.
+     * @return True if the string is a valid integer, false otherwise.
+     */
+    private boolean isInteger(String value) {
+        if (value == null || value.isEmpty()) return false;
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Disables client choice box and new client button upon selection of new client action.
+     */
+    private void onNewClientSelected() {
+        clientChoiceBox.setDisable(true);
+        newClientButton.setDisable(true);
+    }
+
+    /**
+     * Method called after adding a new client to refresh the client choice box and re-enable new client button.
+     */
+    public void afterNewClientClose() {
+        if (!clientChoiceBox.getItems().isEmpty()) clientChoiceBox.getItems().removeAll(clientChoiceBox.getItems());
+        clientChoiceBox.getItems().addAll(Util.clients);
+        clientChoiceBox.setDisable(false);
+        newClientButton.setDisable(false);
+    }
+
+    /**
+     * Shows the window for creating a new campaign.
+     *
+     * @param parent The parent controller initiating the display of the new campaign window.
+     */
+    public static void showNewCampaign(CPController parent) {
         try {
             FXMLLoader loader = new FXMLLoader(MIController.class.getResource("new-campaign-view.fxml"));
             Parent root = loader.load();
@@ -122,39 +211,5 @@ public class NCController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    private String validateInput(){
-        if(nameField.getText() == null || nameField.getText().isEmpty()) return "Campaign name is empty.";
-        else if(startDateDatePicker.getValue().isBefore(LocalDate.now())) return "Invalid start date.";
-        else if(endDateDatePicker.getValue().isBefore(startDateDatePicker.getValue())) return "Invalid end date.";
-        else if(methodOfSettlement.getValue() == null) return "Invalid method of settlement.";
-        else if(!isInteger(estimationsField.getText())) return "Invalid estimations (should be integer).";
-        else if(sizeChoiceBox.getValue() == null) return "Invalid creation size.";
-        else if(communicationChannelChoiceBox.getValue() == null) return "Invalid communication channel.";
-        else if(clientChoiceBox.getValue() == null) return "Invalid client.";
-        else if(descriptionField.getText() == null || descriptionField.getText().isEmpty()) return "Description is required.";
-        else if(targetField.getText() == null || targetField.getText().isEmpty()) return "Target description is required.";
-        return "true";
-    }
-
-    private boolean isInteger(String value){
-        if(value == null || value.isEmpty()) return false;
-        try {
-            Integer.parseInt(value);
-            return true;
-        }catch (Exception e){
-            return false;
-        }
-    }
-    private void onNewClientSelected(){
-        clientChoiceBox.setDisable(true);
-        newClientButton.setDisable(true);
-    }
-
-    public void afterNewClientClose(){
-        if(!clientChoiceBox.getItems().isEmpty()) clientChoiceBox.getItems().removeAll(clientChoiceBox.getItems());
-        clientChoiceBox.getItems().addAll(Util.clients);
-        clientChoiceBox.setDisable(false);
-        newClientButton.setDisable(false);
     }
 }

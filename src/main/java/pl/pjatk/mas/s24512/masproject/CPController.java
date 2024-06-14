@@ -19,45 +19,86 @@ public class CPController implements Initializable {
     Button newCampaignButton;
     @FXML
     Button myInfoButton;
+
+    /**
+     * Initializes the controller with initial data when the FXML file is loaded.
+     *
+     * @param url            The location used to resolve relative paths for the root object.
+     * @param resourceBundle The resources used to localize the root object, or null.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         campaignList.getItems().addAll(Util.getCampaignsByPlannerId(Util.LOGGED_ON_ID));
     }
+
+    /**
+     * Shows the new campaign window when the new campaign button is clicked.
+     *
+     * @param event The ActionEvent triggered by clicking the new campaign button.
+     */
     @FXML
-    private void showNewCampaign(ActionEvent event){
+    private void showNewCampaign(ActionEvent event) {
         NCController.showNewCampaign(this);
         newCampaignButton.setDisable(true);
     }
+
+    /**
+     * Shows the planner's information window when the my information button is clicked.
+     *
+     * @param event The ActionEvent triggered by clicking the my information button.
+     */
     @FXML
-    private void showMyInformation(ActionEvent event){
+    private void showMyInformation(ActionEvent event) {
         MIController.showMyInformation(this);
         myInfoButton.setDisable(true);
     }
+
+    /**
+     * Logs out the user when the logout button is clicked.
+     *
+     * @param event The ActionEvent triggered by clicking the logout button.
+     */
     @FXML
-    private void logout(ActionEvent event){
+    private void logout(ActionEvent event) {
         LoginController.setToLogOffScene(event);
     }
 
+    /**
+     * Handles double-click events on the campaign list to show campaign details.
+     *
+     * @param event The MouseEvent triggered by double-clicking an item in the campaign list.
+     */
     @FXML
-    private void handleDoubleClick(MouseEvent event){
+    private void handleDoubleClick(MouseEvent event) {
         if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
             Campaign selectedItem = campaignList.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                CIController.showCampaignDetailsWindow(campaignList.getSelectionModel().getSelectedItem());
+                CIController.showCampaignDetailsWindow(selectedItem);
             }
         }
     }
 
-    public void afterNewCampaignClose(){
+    /**
+     * Method called after closing the new campaign window to reload campaign lists and enable new campaign button.
+     */
+    public void afterNewCampaignClose() {
         loadLists();
         newCampaignButton.setDisable(false);
     }
-    public void afterMyInfoClose(){
+
+    /**
+     * Method called after closing the my information window to enable my information button.
+     */
+    public void afterMyInfoClose() {
         myInfoButton.setDisable(false);
     }
-    private void loadLists(){
-        if (campaignList != null){
-            campaignList.getItems().removeAll(campaignList.getItems());
+
+    /**
+     * Helper method to reload the campaign list with updated data.
+     */
+    private void loadLists() {
+        if (campaignList != null) {
+            campaignList.getItems().clear();
             campaignList.getItems().addAll(Util.getCampaignsByPlannerId(Util.LOGGED_ON_ID));
         }
     }

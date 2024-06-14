@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 
 public class CIController implements Initializable {
 
-    private static  Campaign campaign;
+    private static Campaign campaign;
 
     @FXML
     TextField idField;
@@ -53,12 +53,21 @@ public class CIController implements Initializable {
     @FXML
     TextArea creationDescriptionField;
 
+    /**
+     * Initializes the controller with initial data when the FXML file is loaded.
+     *
+     * @param url            The location used to resolve relative paths for the root object.
+     * @param resourceBundle The resources used to localize the root object, or null.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Plan plan = Util.getPlanById(campaign.getPlanId());
         double price;
-        if(campaign.getSettlement().equals(SettlementType.CPM)) price = plan.getEstimatedRate() * Price.getPriceForSettlement(campaign.getSettlement()) / 1000;
-        else price = plan.getEstimatedRate() * Price.getPriceForSettlement(campaign.getSettlement());
+        if (campaign.getSettlement().equals(SettlementType.CPM)) {
+            price = plan.getEstimatedRate() * Price.getPriceForSettlement(campaign.getSettlement()) / 1000;
+        } else {
+            price = plan.getEstimatedRate() * Price.getPriceForSettlement(campaign.getSettlement());
+        }
 
         idField.setText(campaign.getId());
         nameField.setText(campaign.getName());
@@ -77,13 +86,23 @@ public class CIController implements Initializable {
         targetField.setText(plan.getTarget());
     }
 
+    /**
+     * Handles the action when the OK button is clicked.
+     *
+     * @param event The ActionEvent triggered by clicking the OK button.
+     */
     @FXML
-    private void onOkButtonClick(ActionEvent event){
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+    private void onOkButtonClick(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
 
-    public static void showCampaignDetailsWindow(Campaign c){
+    /**
+     * Shows the campaign details window for the provided Campaign object.
+     *
+     * @param c The Campaign object for which to show details.
+     */
+    public static void showCampaignDetailsWindow(Campaign c) {
         campaign = c;
         try {
             FXMLLoader loader = new FXMLLoader(ESController.class.getResource("campaign-details-view.fxml"));

@@ -2,6 +2,9 @@ package pl.pjatk.mas.s24512.masproject.Models;
 
 import pl.pjatk.mas.s24512.masproject.Models.enums.ChannelType;
 
+/**
+ * Represents a marketing plan associated with a campaign.
+ */
 public class Plan {
     private String id;
     private int estimatedRate;
@@ -9,6 +12,15 @@ public class Plan {
     private ChannelType communicationChannel;
     private String campaignId;
 
+    /**
+     * Constructs a new Plan object with specified attributes.
+     *
+     * @param id                  The ID of the plan
+     * @param estimatedRate       The estimated rate of the plan
+     * @param target              The target audience or goal of the plan
+     * @param communicationChannel The communication channel type used in the plan
+     * @param campaignId          The ID of the associated campaign
+     */
     public Plan(String id, int estimatedRate, String target, ChannelType communicationChannel, String campaignId) {
         this.id = id;
         this.estimatedRate = estimatedRate;

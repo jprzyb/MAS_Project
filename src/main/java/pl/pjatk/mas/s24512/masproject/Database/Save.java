@@ -10,9 +10,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Save {
-
-    public static void saveCommunicationPlanners(){
-        try{
+    /**
+     * Saves CommunicationPlanners by updating their manager IDs in the database.
+     * Also manages subordinates and removes outdated records from the manager table.
+     */
+    public static void saveCommunicationPlanners() {
+        try {
             Class.forName(Utils.DRIVER_NAME);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -22,10 +25,12 @@ public class Save {
         Connection connection = null;
 
         try {
-            for(CommunicationPlanner cp : Util.communicationPlanners){
+            for (CommunicationPlanner cp : Util.communicationPlanners) {
                 saveEmployee(cp);
-                if(!idExistsInTable(cp.getId(), Utils.COMMUNICATION_PLANNER_TABLE)) insertSubordinateIntoTable(cp.getId(), cp.getManagerId(), Utils.COMMUNICATION_PLANNER_TABLE);
-                if(idExistsInTable(cp.getId(), Utils.COMMUNICATION_PLANNER_MANAGER_TABLE)) removeRecordFromTableById(cp.getId(), Utils.COMMUNICATION_PLANNER_MANAGER_TABLE);
+                if (!idExistsInTable(cp.getId(), Utils.COMMUNICATION_PLANNER_TABLE))
+                    insertSubordinateIntoTable(cp.getId(), cp.getManagerId(), Utils.COMMUNICATION_PLANNER_TABLE);
+                if (idExistsInTable(cp.getId(), Utils.COMMUNICATION_PLANNER_MANAGER_TABLE))
+                    removeRecordFromTableById(cp.getId(), Utils.COMMUNICATION_PLANNER_MANAGER_TABLE);
 
                 connection = DriverManager.getConnection(Utils.URL, Utils.USR, Utils.PASS);
                 String sql = "UPDATE " + Utils.COMMUNICATION_PLANNER_TABLE +
@@ -47,8 +52,12 @@ public class Save {
             }
         }
     }
-    public static void saveTraffics(){
-        try{
+
+    /**
+     * Saves Traffics by updating their manager IDs in the database.
+     */
+    public static void saveTraffics() {
+        try {
             Class.forName(Utils.DRIVER_NAME);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -58,7 +67,7 @@ public class Save {
         Connection connection = null;
 
         try {
-            for(Traffic traffic : Util.traffics){
+            for (Traffic traffic : Util.traffics) {
                 saveEmployee(traffic);
 
                 connection = DriverManager.getConnection(Utils.URL, Utils.USR, Utils.PASS);
@@ -81,78 +90,124 @@ public class Save {
             }
         }
     }
-    public static void saveAccountants(){
-        for(Accountant accountant : Util.accountants){
-            // saving Employee changes
-            saveEmployee(accountant);
-            // checking if accountant is AIO and if exists in AIO table
-            if (accountant.getType().contains(AccountantType.ACCOUNTANT_CAMPAIGN) && accountant.getType().contains(AccountantType.ACCOUNTANT_COMPANY)){
-                // inserting if not exist already
-                if(!idExistsInTable(accountant.getId(), Utils.ACCOUNTANT_AIO_TABLE)) insertAndRemoveAccountant(accountant.getId(), Utils.ACCOUNTANT_AIO_TABLE, Arrays.asList(Utils.CAMPAIGN_ACCOUNTANT_TABLE, Utils.COMPANY_ACCOUNTANT_TABLE));
-            }
-            // checking if accountant is Campaign and if exists in Campaign table
-            else if (accountant.getType().contains(AccountantType.ACCOUNTANT_CAMPAIGN)) {
-                // inserting if not exist already
-                if (!idExistsInTable(accountant.getId(), Utils.CAMPAIGN_ACCOUNTANT_TABLE)) insertAndRemoveAccountant(accountant.getId(), Utils.CAMPAIGN_ACCOUNTANT_TABLE, Arrays.asList(Utils.ACCOUNTANT_AIO_TABLE, Utils.COMPANY_ACCOUNTANT_TABLE));
-            }
-            // checking if accountant is Company and if exists in Company table
-            else if (accountant.getType().contains(AccountantType.ACCOUNTANT_COMPANY)) {
-                // inseting if not  exist already
-                if(!idExistsInTable(accountant.getId(), Utils.COMPANY_ACCOUNTANT_TABLE)) insertAndRemoveAccountant(accountant.getId(), Utils.COMPANY_ACCOUNTANT_TABLE, Arrays.asList(Utils.ACCOUNTANT_AIO_TABLE, Utils.CAMPAIGN_ACCOUNTANT_TABLE));
-            }
-        }
-    }
-    public static void saveCommunicationPlannerManagers(){
-        for(CommunicationPlannerManager cpm : Util.communicationPlannerManagers){
-            saveEmployee(cpm);
-            if(!idExistsInTable(cpm.getId(), Utils.COMMUNICATION_PLANNER_MANAGER_TABLE)) insertIdIntoTable(cpm.getId(), Utils.COMMUNICATION_PLANNER_MANAGER_TABLE);
-            if(idExistsInTable(cpm.getId(), Utils.COMMUNICATION_PLANNER_TABLE)) removeRecordFromTableById(cpm.getId(), Utils.COMMUNICATION_PLANNER_TABLE);
 
+    /**
+     * Saves Accountants by managing their associations in respective tables based on type.
+     */
+    public static void saveAccountants() {
+        for (Accountant accountant : Util.accountants) {
+            saveEmployee(accountant);
+            if (accountant.getType().contains(AccountantType.ACCOUNTANT_CAMPAIGN) && accountant.getType().contains(AccountantType.ACCOUNTANT_COMPANY)) {
+                if (!idExistsInTable(accountant.getId(), Utils.ACCOUNTANT_AIO_TABLE))
+                    insertAndRemoveAccountant(accountant.getId(), Utils.ACCOUNTANT_AIO_TABLE, Arrays.asList(Utils.CAMPAIGN_ACCOUNTANT_TABLE, Utils.COMPANY_ACCOUNTANT_TABLE));
+            } else if (accountant.getType().contains(AccountantType.ACCOUNTANT_CAMPAIGN)) {
+                if (!idExistsInTable(accountant.getId(), Utils.CAMPAIGN_ACCOUNTANT_TABLE))
+                    insertAndRemoveAccountant(accountant.getId(), Utils.CAMPAIGN_ACCOUNTANT_TABLE, Arrays.asList(Utils.ACCOUNTANT_AIO_TABLE, Utils.COMPANY_ACCOUNTANT_TABLE));
+            } else if (accountant.getType().contains(AccountantType.ACCOUNTANT_COMPANY)) {
+                if (!idExistsInTable(accountant.getId(), Utils.COMPANY_ACCOUNTANT_TABLE))
+                    insertAndRemoveAccountant(accountant.getId(), Utils.COMPANY_ACCOUNTANT_TABLE, Arrays.asList(Utils.ACCOUNTANT_AIO_TABLE, Utils.CAMPAIGN_ACCOUNTANT_TABLE));
+            }
         }
     }
-    public static void saveAnnualBonuses(){
+
+    /**
+     * Saves CommunicationPlannerManagers by updating their associations in respective tables.
+     */
+    public static void saveCommunicationPlannerManagers() {
+        for (CommunicationPlannerManager cpm : Util.communicationPlannerManagers) {
+            saveEmployee(cpm);
+            if (!idExistsInTable(cpm.getId(), Utils.COMMUNICATION_PLANNER_MANAGER_TABLE))
+                insertIdIntoTable(cpm.getId(), Utils.COMMUNICATION_PLANNER_MANAGER_TABLE);
+            if (idExistsInTable(cpm.getId(), Utils.COMMUNICATION_PLANNER_TABLE))
+                removeRecordFromTableById(cpm.getId(), Utils.COMMUNICATION_PLANNER_TABLE);
+        }
+    }
+
+    /**
+     * Saves annual bonuses by calling specific methods for planners and traffics.
+     */
+    public static void saveAnnualBonuses() {
         saveAnnualBonusForPlanners();
         saveAnnualBonusForTraffics();
     }
-    public static void saveCampaigns(){
-        for(Campaign c : Util.campaigns){
-            if (idExistsInTable(c.getId(), Utils.CAMPAIGN_TABLE)) updateCampaign(c);
-            else insertCampaign(c);
+
+    /**
+     * Saves Campaigns by either updating existing records or inserting new ones.
+     */
+    public static void saveCampaigns() {
+        for (Campaign c : Util.campaigns) {
+            if (idExistsInTable(c.getId(), Utils.CAMPAIGN_TABLE))
+                updateCampaign(c);
+            else
+                insertCampaign(c);
         }
     }
-    public static void savePlans(){
-        for(Plan plan : Util.plans){
-            if (idExistsInTable(plan.getId(), Utils.CAMPAIGN_PLAN_TABLE)) updatePlan(plan);
-            else insertPlan(plan);
+
+    /**
+     * Saves Plans by either updating existing records or inserting new ones.
+     */
+    public static void savePlans() {
+        for (Plan plan : Util.plans) {
+            if (idExistsInTable(plan.getId(), Utils.CAMPAIGN_PLAN_TABLE))
+                updatePlan(plan);
+            else
+                insertPlan(plan);
         }
     }
-    public static void saveClients(){
-        for(Client c : Util.clients){
-            if(!idExistsInTable(c.getId(), Utils.CLIENT_TABLE)) insertClient(c);
+
+    /**
+     * Saves Clients by inserting new records if they do not already exist.
+     */
+    public static void saveClients() {
+        for (Client c : Util.clients) {
+            if (!idExistsInTable(c.getId(), Utils.CLIENT_TABLE))
+                insertClient(c);
         }
     }
-    public static void saveCompanies(){
-        for(Company c: Util.companies){
-            if(!idExistsInTable(c.getId(), Utils.COMPANY_TABLE)) insertCompany(c);
+
+    /**
+     * Saves Companies by inserting new records if they do not already exist.
+     */
+    public static void saveCompanies() {
+        for (Company c : Util.companies) {
+            if (!idExistsInTable(c.getId(), Utils.COMPANY_TABLE))
+                insertCompany(c);
         }
     }
-    public static void saveDesigners(){
-        for(Designer d: Util.designers){
+
+    /**
+     * Saves Designers by updating their employee information in the database.
+     */
+    public static void saveDesigners() {
+        for (Designer d : Util.designers) {
             saveEmployee(d);
         }
     }
-    public static void saveTrafficsAIO(){
-        for(TrafficAIO t: Util.trafficsAIO){
-            saveEmployee(t);
-        }
-    }    public static void saveTrafficManagers(){
-        for(TrafficManager t: Util.trafficManagers){
+
+    /**
+     * Saves TrafficsAIO by updating their employee information in the database.
+     */
+    public static void saveTrafficsAIO() {
+        for (TrafficAIO t : Util.trafficsAIO) {
             saveEmployee(t);
         }
     }
+
+    /**
+     * Saves TrafficManagers by updating their employee information in the database.
+     */
+    public static void saveTrafficManagers() {
+        for (TrafficManager t : Util.trafficManagers) {
+            saveEmployee(t);
+        }
+    }
+
     // =================================================================================================================
+    /**
+     * Inserts a new client into the CLIENT_TABLE.
+     */
     private static void insertClient(Client c) {
-        Connection connection = null;
+        Connection connection;
         try{
             Class.forName(Utils.DRIVER_NAME);
             connection = DriverManager.getConnection(Utils.URL, Utils.USR, Utils.PASS);
@@ -186,8 +241,11 @@ public class Save {
             }
         }
     }
+    /**
+     * Inserts a new plan into the CAMPAIGN_PLAN_TABLE.
+     */
     private static void insertPlan(Plan plan) {
-        Connection connection = null;
+        Connection connection;
         try{
             Class.forName(Utils.DRIVER_NAME);
             connection = DriverManager.getConnection(Utils.URL, Utils.USR, Utils.PASS);
@@ -219,8 +277,11 @@ public class Save {
             }
         }
     }
+    /**
+     * Inserts a new company into the COMPANY_TABLE.
+     */
     private static void insertCompany(Company company) {
-        Connection connection = null;
+        Connection connection;
         try{
             Class.forName(Utils.DRIVER_NAME);
             connection = DriverManager.getConnection(Utils.URL, Utils.USR, Utils.PASS);
@@ -237,7 +298,7 @@ public class Save {
 
             pstmt.setString(1, company.getId());
             pstmt.setString(2, company.getName());
-            pstmt.setString(3, company.getAdress());
+            pstmt.setString(3, company.getAddress());
             pstmt.setString(4, company.getAccountNumber());
             pstmt.setString(5, String.valueOf(company.isRegular()));
 
@@ -253,8 +314,11 @@ public class Save {
             }
         }
     }
+    /**
+     * Updates an existing plan in the CAMPAIGN_PLAN_TABLE.
+     */
     private static void updatePlan(Plan plan) {
-        Connection connection = null;
+        Connection connection;
         try{
             Class.forName(Utils.DRIVER_NAME);
             connection = DriverManager.getConnection(Utils.URL, Utils.USR, Utils.PASS);
@@ -285,8 +349,11 @@ public class Save {
             }
         }
     }
+    /**
+     * Updates an existing campaign in the CAMPAIGN_TABLE.
+     */
     private static void updateCampaign(Campaign campaign){
-        Connection connection = null;
+        Connection connection;
         try{
             Class.forName(Utils.DRIVER_NAME);
             connection = DriverManager.getConnection(Utils.URL, Utils.USR, Utils.PASS);
@@ -330,8 +397,11 @@ public class Save {
             }
         }
     }
+    /**
+     * Inserts a new campaign into the CAMPAIGN_TABLE.
+     */
     private static void insertCampaign(Campaign campaign){
-        Connection connection = null;
+        Connection connection;
         try{
             Class.forName(Utils.DRIVER_NAME);
             connection = DriverManager.getConnection(Utils.URL, Utils.USR, Utils.PASS);
@@ -377,8 +447,11 @@ public class Save {
             }
         }
     }
+    /**
+     * Saves annual bonuses for planners in the ANNUAL_BONUS_TABLE.
+     */
     private static void saveAnnualBonusForPlanners(){
-        Connection connection = null;
+        Connection connection;
         try{
             Class.forName(Utils.DRIVER_NAME);
             connection = DriverManager.getConnection(Utils.URL, Utils.USR, Utils.PASS);
@@ -405,8 +478,11 @@ public class Save {
             }
         }
     }
+    /**
+     * Saves annual bonuses for traffics in the ANNUAL_BONUS_TABLE.
+     */
     private static void saveAnnualBonusForTraffics(){
-        Connection connection = null;
+        Connection connection;
         try{
             Class.forName(Utils.DRIVER_NAME);
             connection = DriverManager.getConnection(Utils.URL, Utils.USR, Utils.PASS);
@@ -433,12 +509,18 @@ public class Save {
             }
         }
     }
+    /**
+     * Inserts an accountant ID into one table and removes from others (if it exists in those).
+     */
     private static void insertAndRemoveAccountant(String accountantId, String insertTable, List<String> removeTables){
         insertIdIntoTable(accountantId, insertTable);
         for(String table : removeTables) removeRecordFromTableById(accountantId, table);
     }
+    /**
+     * Inserts an ID into the specified table.
+     */
     private static void insertIdIntoTable(String id, String table){
-        Connection connection = null;
+        Connection connection;
         try{
             Class.forName(Utils.DRIVER_NAME);
             connection = DriverManager.getConnection(Utils.URL, Utils.USR, Utils.PASS);
@@ -464,8 +546,11 @@ public class Save {
             }
         }
     }
+    /**
+     * Inserts a subordinate relationship into the specified table.
+     */
     private static void insertSubordinateIntoTable(String plannerId, String managerId, String table){
-        Connection connection = null;
+        Connection connection;
         try{
             Class.forName(Utils.DRIVER_NAME);
             connection = DriverManager.getConnection(Utils.URL, Utils.USR, Utils.PASS);
@@ -492,10 +577,14 @@ public class Save {
             }
         }
     }
+    /**
+     * Removes a record from the specified table based on ID
+     * (used only for tables like Planner Manager, Designer etc. where only id is specified).
+     */
     private static void removeRecordFromTableById(String id, String table){
         //checking if id exist in table
         if(!idExistsInTable(id, table)) return;
-        Connection connection = null;
+        Connection connection;
 
         try{
             Class.forName(Utils.DRIVER_NAME);
@@ -522,6 +611,9 @@ public class Save {
             }
         }
     }
+    /**
+     * Updates employee information in the EMPLOYEE_TABLE.
+     */
     private static void saveEmployee(Employee employee){
         Connection connection;
         try{
@@ -564,8 +656,12 @@ public class Save {
             }
         }
     }
+    /**
+     * Checks if an ID exists in the specified table.
+     * @return true if the ID exists, false otherwise.
+     */
     private static boolean idExistsInTable(String id, String tableName){
-        Connection connection = null;
+        Connection connection;
         try{
             Class.forName(Utils.DRIVER_NAME);
             connection = DriverManager.getConnection(Utils.URL, Utils.USR, Utils.PASS);
