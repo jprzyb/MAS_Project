@@ -378,11 +378,11 @@ public class Save {
             pstmt.setString(7, campaign.getCreationDesc());
             pstmt.setString(8, String.valueOf(campaign.getStatus()));
             pstmt.setString(9, String.valueOf(campaign.getSettlement()));
-            pstmt.setString(10, campaign.getPlannerId());
-            pstmt.setString(11, campaign.getTrafficId());
-            pstmt.setString(12, campaign.getPlanId());
-            pstmt.setString(13, campaign.getDesignerId());
-            pstmt.setString(14, campaign.getAccountantId());
+            pstmt.setString(10, campaign.getPlanner().getId());
+            pstmt.setString(11, campaign.getTraffic().getId());
+            pstmt.setString(12, campaign.getPlan().getId());
+            pstmt.setString(13, campaign.getDesigner().getId());
+            pstmt.setString(14, campaign.getAccountant().getId());
             pstmt.setString(15, campaign.getDescription());
             pstmt.setString(16, campaign.getId());
             pstmt.executeUpdate();
@@ -427,12 +427,12 @@ public class Save {
             pstmt.setString(9, campaign.getCreationDesc());
             pstmt.setString(10, String.valueOf(campaign.getStatus()));
             pstmt.setString(11, String.valueOf(campaign.getSettlement()));
-            pstmt.setString(12, campaign.getPlannerId());
-            pstmt.setString(13, campaign.getTrafficId());
-            pstmt.setString(14, campaign.getClientId());
-            pstmt.setString(15, campaign.getPlanId());
-            pstmt.setString(16, campaign.getDesignerId());
-            pstmt.setString(17, campaign.getAccountantId());
+            pstmt.setString(12, campaign.getPlanner().getId());
+            pstmt.setString(13, campaign.getTraffic().getId());
+            pstmt.setString(14, campaign.getClient().getId());
+            pstmt.setString(15, campaign.getPlan().getId());
+            pstmt.setString(16, campaign.getDesigner().getId());
+            pstmt.setString(17, campaign.getAccountant().getId());
             pstmt.setString(18, campaign.getDescription());
 
             pstmt.executeUpdate();

@@ -14,6 +14,8 @@ public class Client {
     private String phoneNumber; // Phone number of the client
     private String companyId; // ID of the company associated with the client
 
+    private Company company; // associated company
+
     /**
      * Constructor for the Client class.
      *
@@ -83,19 +85,12 @@ public class Client {
      * Setter for the companyId.
      * Ensures the client is removed from the old company and added to the new company.
      *
-     * @param companyId ID of the new company
+     * @param company new company
      */
-    public void setCompanyId(String companyId) {
-        // Remove client from the old company
-        if (Util.getCompanyById(this.companyId).getSubordinatesIds().contains(this.id)) {
-            Util.getCompanyById(this.companyId).removeSubordinate(this.id);
-        }
-        // Add client to the new company
-        if (!Util.getCompanyById(companyId).getSubordinatesIds().contains(this.id)) {
-            Util.getCompanyById(companyId).addSubordinate(this.id);
-        }
+    public void setCompany(Company company) {
+        this.company = company;
         // Set the new company ID
-        this.companyId = companyId;
+        this.companyId = company.getId();
     }
 
     @Override

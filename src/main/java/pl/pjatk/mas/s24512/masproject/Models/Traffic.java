@@ -1,7 +1,5 @@
 package pl.pjatk.mas.s24512.masproject.Models;
 
-import pl.pjatk.mas.s24512.masproject.Util;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +11,9 @@ import java.util.List;
 public class Traffic extends Employee implements ITraffic {
 
     private List<String> campaignIds; // List of campaign IDs managed by this Traffic employee
+    private List<Campaign> campaigns; // List of campaigns managed by this Traffic employee
     private String managerId; // ID of the Traffic manager for this employee
+    private TrafficManager manager; // Traffic manager for this employee
 
     /**
      * Constructs a Traffic object with specified attributes.
@@ -32,6 +32,7 @@ public class Traffic extends Employee implements ITraffic {
      */
     public Traffic(String id, String firstName, String lastName, String login, String password, Date birthDate, Date employmentDate, double salary, EducationLevel educationLevel, List<String> campaignIds, String managerId) {
         super(id, firstName, lastName, login, password, birthDate, employmentDate, salary, educationLevel);
+        campaigns = new ArrayList<>();
         this.campaignIds = new ArrayList<>();
         this.campaignIds.addAll(campaignIds);
         this.managerId = managerId;
@@ -53,8 +54,8 @@ public class Traffic extends Employee implements ITraffic {
      *
      * @return The list of campaign IDs
      */
-    public List<String> getIdsOfCampaigns() {
-        return campaignIds;
+    public List<Campaign> getCampaigns() {
+        return campaigns;
     }
 
     /**
@@ -79,17 +80,11 @@ public class Traffic extends Employee implements ITraffic {
      * Sets the ID of the Traffic manager for this employee.
      * Transfers the employee from the old manager to the new manager.
      *
-     * @param managerId The ID of the new Traffic manager
+     * @param manager The ID of the new Traffic manager
      */
-    public void setManagerId(String managerId) {
-        // Removing from old manager's list of subordinates
-        if (Util.getTrafficManagerById(this.managerId).getSubordinatesIds().contains(this.getId())) {
-            Util.getTrafficManagerById(this.managerId).removeSubordinate(this.getId());
-        }
-        this.managerId = managerId;
-        // Adding to new manager's list of subordinates
-        if (Util.getTrafficManagerById(this.managerId).getSubordinatesIds().contains(this.getId())) {
-            Util.getTrafficManagerById(this.managerId).addSubordinate(this.getId());
-        }
+    public void setManager(TrafficManager manager) {
+        this.manager = manager;
+        this.managerId = manager.getId();
+        manager.addSubordinate(this);
     }
 }

@@ -16,6 +16,7 @@ public class Company {
     private String accountNumber; // Account number of the company
     private boolean isRegular; // Indicates if the company is a regular client
     private List<String> subordinatesIds; // List of IDs of subordinates associated with the company
+    private List<Client> subordinates; // List of IDs of subordinates associated with the company
 
     /**
      * Constructor for the Company class.
@@ -148,30 +149,23 @@ public class Company {
     /**
      * Adds a subordinate to the company's list of subordinates.
      *
-     * @param subordinateId ID of the subordinate to add
+     * @param client subordinate to add
      */
-    public void addSubordinate(String subordinateId) {
-        // Client side setting company
-        if (!Util.getClientById(subordinateId).getCompanyId().equals(this.id)) {
-            Util.getClientById(subordinateId).setCompanyId(this.id);
-        }
-        // Adding ID to subordinates IDs
-        if (!subordinatesIds.contains(subordinateId)) {
-            this.subordinatesIds.add(subordinateId);
-        }
+    public void addSubordinate(Client client) {
+        this.subordinates.add(client);
+        client.setCompany(this);
     }
 
     /**
      * Removes a subordinate from the company's list of subordinates.
      *
-     * @param subordinateId ID of the subordinate to remove
+     * @param subordinate ID of the subordinate to remove
      */
-    public void removeSubordinate(String subordinateId) {
+    public void removeSubordinate(Client subordinate) {
         // Removing from subordinates
-        if (subordinatesIds.contains(subordinateId)) {
-            this.subordinatesIds.remove(subordinateId);
+        if (subordinates.contains(subordinate)) {
+            this.subordinates.remove(subordinate);
         }
-        Util.getClientById(subordinateId).setCompanyId("");
     }
 
     /**

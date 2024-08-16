@@ -61,7 +61,7 @@ public class CIController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Plan plan = Util.getPlanById(campaign.getPlanId());
+        Plan plan = campaign.getPlan();
         double price;
         if (campaign.getSettlement().equals(SettlementType.CPM)) {
             price = plan.getEstimatedRate() * Price.getPriceForSettlement(campaign.getSettlement()) / 1000;
@@ -79,7 +79,7 @@ public class CIController implements Initializable {
         sizeField.setText(String.valueOf(campaign.getSize()));
         isAnimatedField.setText(String.valueOf(campaign.isAnimated()));
         communicationChannelField.setText(String.valueOf(plan.getCommunicationChannel()));
-        clientField.setText(Util.getClientById(campaign.getClientId()).toString());
+        clientField.setText(campaign.getClient().toString());
         priceField.setText(String.valueOf(price));
         descriptionField.setText(campaign.getDescription());
         creationDescriptionField.setText(campaign.getCreationDesc());

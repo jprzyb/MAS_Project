@@ -47,9 +47,9 @@ public class Accountant extends Employee {
     /**
      * Method to calculate an invoice based on the campaign ID.
      *
-     * @param campaignId Campaign ID
+     * @param campaign invoice Campaign
      */
-    public void calcInvoice(String campaignId) {
+    public void calcInvoice(Campaign campaign) {
         // Check if the accountant is responsible for campaigns
         if (!type.contains(AccountantType.ACCOUNTANT_CAMPAIGN)) return;
         // Logic for calculating the invoice

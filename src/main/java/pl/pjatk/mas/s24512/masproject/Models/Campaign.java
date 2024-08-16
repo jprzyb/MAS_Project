@@ -25,10 +25,17 @@ public class Campaign {
     private String planId; // ID of the associated plan
     private String clientId; // ID of the client
     private String plannerId; // ID of the planner
-    private String trafficId; // ID of the traffic manager
+    private String trafficId; // ID of the traffic
     private String designerId; // ID of the designer
     private String accountantId; // ID of the accountant
     private String description; // Additional description of the campaign
+
+    private Plan plan; // associated plan
+    private Client client; // associated client
+    private CommunicationPlanner planner; // associated planner
+    private Traffic traffic; // associated traffic
+    private Designer designer; // associated designer
+    private Accountant accountant; // associated accountant
 
     /**
      * Constructor for the Campaign class.
@@ -165,6 +172,80 @@ public class Campaign {
         this.settlement = settlement;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Plan getPlan() {
+        return plan;
+    }
+
+    public void setPlan(Plan plan) {
+        if(this.plan != plan) {
+            this.plan.setCampaign(null);
+            this.plan = plan;
+            plan.setCampaign(this);
+        }
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        if(!this.client.equals(client)){
+            this.client = client;
+        }
+    }
+
+    public CommunicationPlanner getPlanner() {
+        return planner;
+    }
+
+    public void setPlanner(CommunicationPlanner planner) {
+        if(!this.planner.equals(planner) ){
+            this.planner.getCampaigns().remove(this);
+            this.planner = planner;
+            planner.getCampaigns().add(this);
+        }
+    }
+
+    public Traffic getTraffic() {
+        return traffic;
+    }
+
+    public void setTraffic(Traffic traffic) {
+        if(!this.traffic.equals(traffic) ){
+            this.traffic.getCampaigns().remove(this);
+            this.traffic = traffic;
+            traffic.getCampaigns().add(this);
+        }
+    }
+
+    public Designer getDesigner() {
+        return designer;
+    }
+
+    public void setDesigner(Designer designer) {
+        if(!this.designer.equals(designer) ){
+            this.designer.getCampaigns().remove(this);
+            this.designer = designer;
+            designer.getCampaigns().add(this);
+        }
+    }
+
+    public Accountant getAccountant() {
+        return accountant;
+    }
+
+    public void setAccountant(Accountant accountant) {
+        this.accountant = accountant;
+    }
+
     public String getPlanId() {
         return planId;
     }
@@ -211,14 +292,6 @@ public class Campaign {
 
     public void setAccountantId(String accountantId) {
         this.accountantId = accountantId;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     /**

@@ -8,6 +8,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import pl.pjatk.mas.s24512.masproject.Models.Campaign;
+import pl.pjatk.mas.s24512.masproject.Models.CommunicationPlanner;
+import pl.pjatk.mas.s24512.masproject.Models.enums.RoleType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,7 +30,7 @@ public class CPController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        campaignList.getItems().addAll(Util.getCampaignsByPlannerId(Util.LOGGED_ON_ID));
+        loadLists();
     }
 
     /**
@@ -99,7 +101,9 @@ public class CPController implements Initializable {
     private void loadLists() {
         if (campaignList != null) {
             campaignList.getItems().clear();
-            campaignList.getItems().addAll(Util.getCampaignsByPlannerId(Util.LOGGED_ON_ID));
+            for(CommunicationPlanner c : Util.communicationPlanners){
+                if(c.getId().equals(Util.LOGGED_ON_EMPLOYEE.getId())) campaignList.getItems().addAll(c.getCampaigns());
+            }
         }
     }
 }

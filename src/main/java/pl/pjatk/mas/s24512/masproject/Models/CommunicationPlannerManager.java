@@ -1,7 +1,5 @@
 package pl.pjatk.mas.s24512.masproject.Models;
 
-import pl.pjatk.mas.s24512.masproject.Util;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +11,9 @@ import java.util.List;
 public class CommunicationPlannerManager extends Employee {
     private static double ANNUAL_BONUS; // Annual bonus for the manager
     private List<String> campaignsIds; // List of campaign IDs managed by the manager
+    private List<Campaign> campaigns; // List of campaign managed by the manager
     private List<String> subordinatesIds; // List of IDs of subordinates managed by the manager
+    private List<CommunicationPlanner> subordinates; // List of subordinates managed by the manager
 
     /**
      * Constructor for the CommunicationPlannerManager class.
@@ -121,24 +121,26 @@ public class CommunicationPlannerManager extends Employee {
      * Adds a subordinate to the manager's list of subordinates.
      * Also ensures the subordinate's manager ID is set correctly.
      *
-     * @param subordinateId ID of the subordinate to add
+     * @param communicationPlanner subordinate to add
      */
-    public void addSubordinate(String subordinateId) {
-        if (!subordinatesIds.contains(subordinateId)) {
-            subordinatesIds.add(subordinateId);
-            if (!Util.getCommunicationPlannerById(subordinateId).getManagerId().equals(this.getId())) {
-                Util.getCommunicationPlannerById(subordinateId).setManagerId(this.getId());
-            }
+    public void addSubordinate(CommunicationPlanner communicationPlanner) {
+        if (!subordinates.contains(communicationPlanner)) {
+            communicationPlanner.setManager(this);
+            subordinates.add(communicationPlanner);
         }
     }
 
     /**
      * Sets the salary of a subordinate.
      *
-     * @param subordinateId ID of the subordinate
+     * @param communicationPlanner  subordinate
      * @param salary        New salary amount
      */
-    public void setSubordinateSalary(String subordinateId, double salary) {
-        Util.getCommunicationPlannerById(subordinateId).setSalary(salary);
+    public void setSubordinateSalary(CommunicationPlanner communicationPlanner, double salary) {
+        communicationPlanner.setSalary(salary);
+    }
+
+    public List<CommunicationPlanner> getSubordinates() {
+        return subordinates;
     }
 }

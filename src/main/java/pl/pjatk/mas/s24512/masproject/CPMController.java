@@ -5,6 +5,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import pl.pjatk.mas.s24512.masproject.Models.CommunicationPlanner;
+import pl.pjatk.mas.s24512.masproject.Models.CommunicationPlannerManager;
+import pl.pjatk.mas.s24512.masproject.Models.Employee;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -56,7 +58,9 @@ public class CPMController extends CPController implements Initializable {
     private void loadEmployeeList() {
         if (subordinates != null) {
             subordinates.getItems().clear();
-            subordinates.getItems().addAll(Util.getSubordinatesByManager(Util.getCommunicationPlannerManagerById(Util.LOGGED_ON_ID)));
+            for(CommunicationPlannerManager c : Util.communicationPlannerManagers){
+                if(c.getId() == Util.LOGGED_ON_EMPLOYEE.getId()) subordinates.getItems().addAll(c.getSubordinates());
+            }
         }
     }
 

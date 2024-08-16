@@ -10,6 +10,7 @@ import java.util.List;
 public class TrafficAIO extends TrafficManager implements ITraffic {
 
     private List<String> campaignIds; // List of campaign IDs managed by this AI-driven Traffic Manager
+    private List<Campaign> campaigns; // List of campaign managed by this AI-driven Traffic Manager
 
     /**
      * Constructs a TrafficAIO object with specified attributes.

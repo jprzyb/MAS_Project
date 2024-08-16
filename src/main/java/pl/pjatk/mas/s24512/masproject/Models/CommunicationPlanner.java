@@ -1,7 +1,5 @@
 package pl.pjatk.mas.s24512.masproject.Models;
 
-import pl.pjatk.mas.s24512.masproject.Util;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +10,9 @@ import java.util.List;
  */
 public class CommunicationPlanner extends Employee {
     private List<String> campaignsIds; // List of campaign IDs managed by the planner
+    private List<Campaign> campaigns; // List of campaign managed by the planner
     private String managerId; // ID of the manager overseeing the planner
+    private CommunicationPlannerManager manager; // manager overseeing the planner
 
     /**
      * Constructor for the CommunicationPlanner class.
@@ -69,24 +69,6 @@ public class CommunicationPlanner extends Employee {
     }
 
     /**
-     * Sets the manager ID overseeing the planner.
-     * Updates the subordinates of the old and new manager accordingly.
-     *
-     * @param managerId New manager ID
-     */
-    public void setManagerId(String managerId) {
-        // Remove from the old manager
-        if ((managerId != null || !managerId.isEmpty()) && Util.getCommunicationPlannerManagerById(this.managerId) != null) {
-            Util.getCommunicationPlannerManagerById(this.managerId).removeSubordinate(this.getId());
-        }
-        this.managerId = managerId;
-        // Add to the new manager
-        if (Util.getCommunicationPlannerManagerById(managerId) != null) {
-            Util.getCommunicationPlannerManagerById(managerId).addSubordinate(this.getId());
-        }
-    }
-
-    /**
      * Gets the list of campaign IDs managed by the planner.
      *
      * @return List of campaign IDs
@@ -102,5 +84,14 @@ public class CommunicationPlanner extends Employee {
      */
     public void setCampaignsIds(List<String> idsOfCampaigns) {
         this.campaignsIds = idsOfCampaigns;
+    }
+
+    public List<Campaign> getCampaigns() {
+        return campaigns;
+    }
+
+    public void setManager(CommunicationPlannerManager communicationPlannerManager) {
+        this.manager = communicationPlannerManager;
+        this.managerId = communicationPlannerManager.getId();
     }
 }

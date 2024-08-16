@@ -13,6 +13,7 @@ public class Designer extends Employee {
 
     // List of campaign IDs the designer is associated with
     List<String> campaignsId;
+    List<Campaign> campaigns;
 
     /**
      * Constructor for the Designer class.
@@ -37,9 +38,13 @@ public class Designer extends Employee {
     /**
      * Method to create a new creation for a specific campaign.
      *
-     * @param campaignId ID of the campaign for which a new creation is to be made
+     * @param campaign campaign for which a new creation is to be made
      */
-    public void makeCreation(String campaignId) {
-        Util.getCampaignById(campaignId).setNeedsNewCreation(false);
+    public void makeCreation(Campaign campaign) {
+        campaign.setNeedsNewCreation(false);
+    }
+
+    public List<Campaign> getCampaigns() {
+        return campaigns;
     }
 }

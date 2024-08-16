@@ -11,6 +11,7 @@ public class Plan {
     private String target;
     private ChannelType communicationChannel;
     private String campaignId;
+    private Campaign campaign;
 
     /**
      * Constructs a new Plan object with specified attributes.
@@ -67,5 +68,12 @@ public class Plan {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setCampaign(Campaign campaign) {
+        if(this.campaign != campaign){
+            this.campaign = campaign;
+            campaign.setPlan(this);
+        }
     }
 }

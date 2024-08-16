@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pl.pjatk.mas.s24512.masproject.Models.CommunicationPlannerManager;
-import pl.pjatk.mas.s24512.masproject.Models.EducationLevel;
 import pl.pjatk.mas.s24512.masproject.Models.Employee;
 
 import java.net.URL;
@@ -50,7 +49,7 @@ public class MIController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Employee e = Util.getEmployeeById(Util.LOGGED_ON_ID);
+        Employee e = Util.LOGGED_ON_EMPLOYEE;
         firstNameField.setText(e.getFirstName() + " " + e.getLastName());
         roleField.setText(String.valueOf(Util.LOGGED_ON_ROLE));
         loginField.setText(e.getLogin());
@@ -70,7 +69,7 @@ public class MIController implements Initializable {
      */
     @FXML
     private void setPassword() {
-        Util.getEmployeeById(Util.LOGGED_ON_ID).setPassword(passwordField.getText());
+         Util.LOGGED_ON_EMPLOYEE.setPassword(passwordField.getText());
     }
 
     /**
@@ -78,7 +77,7 @@ public class MIController implements Initializable {
      */
     @FXML
     private void setLogin() {
-        Util.getEmployeeById(Util.LOGGED_ON_ID).setLogin(loginField.getText());
+        Util.LOGGED_ON_EMPLOYEE.setLogin(loginField.getText());
     }
 
     /**

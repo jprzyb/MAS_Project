@@ -20,7 +20,7 @@ public class Util {
     /**
      * The ID of the currently logged-on user.
      */
-    public static String LOGGED_ON_ID;
+    public static Employee LOGGED_ON_EMPLOYEE;
 
     /**
      * List of communication planners.
@@ -97,7 +97,36 @@ public class Util {
         plans = Load.loadPlans();
         accountants = Load.loadAccountants();
         designers = Load.loadDesigners();
+
     }
+
+    public static void associate() {
+        // campaigns - planners
+
+        // campaigns - planner managers
+
+        // campaigns - traffics
+
+        // campaigns - traffic managers
+
+        // campaigns - plans
+
+        // campaigns - clients
+
+        // campaigns - designers
+
+        // campaigns - accountants
+
+        // clients - company
+
+        // planners - managers
+
+        // traffics - traffics managers
+
+        // traffics - traffics AIO
+        
+    }
+
     /**
      * Saves data from static lists to the database.
      */
@@ -232,14 +261,14 @@ public class Util {
         for(CommunicationPlanner p : communicationPlanners){
 //            System.out.println(p.getLogin() + " " + p.getPassword() + " == " + login + " " + pass);
             if(p.getLogin().equals(login) && p.getPassword().equals(pass)) {
-                LOGGED_ON_ID = p.getId();
+                LOGGED_ON_EMPLOYEE = p;
                 return true;
             }
         }
         for(CommunicationPlannerManager p : communicationPlannerManagers){
 //            System.out.println(p.getLogin() + " " + p.getPassword() + " == " + login + " " + pass);
             if(p.getLogin().equals(login) && p.getPassword().equals(pass)) {
-                LOGGED_ON_ID = p.getId();
+                LOGGED_ON_EMPLOYEE = p;
                 return true;
             }
         }
@@ -248,13 +277,13 @@ public class Util {
     /**
      * Retrieves a list of campaigns assigned to a communication planner.
      *
-     * @param plannerId The ID of the communication planner.
+     * @param communicationPlanner The ID of the communication planner.
      * @return List of campaigns assigned to the planner.
      */
-    public static List<Campaign> getCampaignsByPlannerId(String plannerId){
+    public static List<Campaign> getCampaignsByPlanner(CommunicationPlanner communicationPlanner){
         List<Campaign> result = new ArrayList<>();
 
-        for(Campaign c : campaigns) if(c.getPlannerId().equals(plannerId)) result.add(c);
+        for(Campaign c : campaigns) if(c.getPlanner().equals(communicationPlanner)) result.add(c);
 
         return result;
     }
@@ -290,30 +319,8 @@ public class Util {
     public static List<CommunicationPlanner> getSubordinatesByManager(CommunicationPlannerManager cpm) {
         List<CommunicationPlanner> result = new ArrayList<>();
 
-        for (String id : cpm.getSubordinatesIds()) result.add(getCommunicationPlannerById(id));
+        for (CommunicationPlanner communicationPlanner : cpm.getSubordinates()) result.add(getCommunicationPlannerById(id));
 
         return result;
-    }
-    /**
-     * Retrieves a plan by ID.
-     *
-     * @param planId The ID of the plan.
-     * @return The plan object, or null if not found.
-     */
-    public static Plan getPlanById(String planId) {
-        for(Plan p : plans) if(p.getId().equals(planId)) return p;
-        return null;
-    }
-    /**
-     * Retrieves a campaign by ID.
-     *
-     * @param campaignId The ID of the campaign.
-     * @return The campaign object, or null if not found.
-     */
-    public static Campaign getCampaignById(String campaignId) {
-        for(Campaign campaign : campaigns) {
-            if (campaign.getId().equals(campaignId)) return campaign;
-        }
-        return null;
     }
 }

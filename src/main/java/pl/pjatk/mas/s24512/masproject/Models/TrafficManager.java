@@ -14,6 +14,7 @@ public class TrafficManager extends Employee {
 
     private static double ANNUAL_BONUS; // Static annual bonus for all Traffic Managers
     private List<String> subordinatesIds; // List of subordinate IDs managed by this Traffic Manager
+    private List<Traffic> subordinates; // List of subordinates managed by this Traffic Manager
 
     /**
      * Constructs a TrafficManager object with specified attributes.
@@ -75,34 +76,31 @@ public class TrafficManager extends Employee {
      * Adds a subordinate to the list managed by this Traffic Manager,
      * setting the manager ID of the subordinate if not already set.
      *
-     * @param subordinateId The ID of the subordinate to add
+     * @param subordinate subordinate to add
      */
-    public void addSubordinate(String subordinateId) {
-        if (!subordinatesIds.contains(subordinateId)) {
-            subordinatesIds.add(subordinateId);
-            if (!Util.getTrafficById(subordinateId).getManagerId().equals(this.getId()))
-                Util.getTrafficById(subordinateId).setManagerId(this.getId());
-        }
+    public void addSubordinate(Traffic subordinate) {
+        this.subordinates.add(subordinate);
     }
 
     /**
      * Removes a subordinate from the list managed by this Traffic Manager,
      * and clears the manager ID of the subordinate.
      *
-     * @param subordinateId The ID of the subordinate to remove
+     * @param subordinate The ID of the subordinate to remove
      */
-    public void removeSubordinate(String subordinateId) {
-        subordinatesIds.remove(subordinateId);
-        Util.getTrafficById(subordinateId).setManagerId("");
+    public void removeSubordinate(Traffic subordinate) {
+        subordinates.remove(subordinate);
+        subordinatesIds.remove(subordinate.getId());
+        subordinate.setManager(null);
     }
 
     /**
      * Sets the salary of a subordinate managed by this Traffic Manager.
      *
-     * @param subordinateId The ID of the subordinate whose salary to set
+     * @param subordinate The ID of the subordinate whose salary to set
      * @param salary        The salary to set
      */
-    public void setSubordinateSalary(String subordinateId, double salary) {
-        Util.getTrafficById(subordinateId).setSalary(salary);
+    public void setSubordinateSalary(Traffic subordinate, double salary) {
+        subordinate.setSalary(salary);
     }
 }
