@@ -73,13 +73,14 @@ public class Campaign {
         this.creationDesc = creationDesc;
         this.status = status;
         this.settlement = settlement;
+        this.description = description;
+
         this.planId = planId;
         this.clientId = clientId;
         this.plannerId = plannerId;
         this.trafficId = trafficId;
         this.designerId = designerId;
         this.accountantId = accountantId;
-        this.description = description;
     }
 
     // Getters and setters for all fields
@@ -185,11 +186,9 @@ public class Campaign {
     }
 
     public void setPlan(Plan plan) {
-        if(this.plan != plan) {
-            this.plan.setCampaign(null);
-            this.plan = plan;
-            plan.setCampaign(this);
-        }
+        this.plan = plan;
+        plan.setCampaign(this);
+
     }
 
     public Client getClient() {
@@ -197,9 +196,7 @@ public class Campaign {
     }
 
     public void setClient(Client client) {
-        if(!this.client.equals(client)){
-            this.client = client;
-        }
+        this.client = client;
     }
 
     public CommunicationPlanner getPlanner() {
@@ -207,10 +204,12 @@ public class Campaign {
     }
 
     public void setPlanner(CommunicationPlanner planner) {
-        if(!this.planner.equals(planner) ){
-            this.planner.getCampaigns().remove(this);
-            this.planner = planner;
-            planner.getCampaigns().add(this);
+        if(this.planner != null){
+            if(!this.planner.equals(planner) ){
+                this.planner.getCampaigns().remove(this);
+                this.planner = planner;
+                planner.getCampaigns().add(this);
+            }
         }
     }
 

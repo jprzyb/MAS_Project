@@ -93,37 +93,168 @@ public class Util {
         trafficsAIO = Load.loadTrafficsAIO();
         companies = Load.loadCompanies();
         clients = Load.loadClients();
-        campaigns = Load.loadCampaigns();
         plans = Load.loadPlans();
         accountants = Load.loadAccountants();
         designers = Load.loadDesigners();
+        campaigns = Load.loadCampaigns();
 
     }
 
     public static void associate() {
         // campaigns - planners
-
+        for(Campaign c : campaigns){
+            if(c.getPlanner() == null){
+                for(CommunicationPlanner p : communicationPlanners){
+                    if(c.getPlannerId().equals(p.getId())) {
+                        p.getCampaigns().add(c);
+                        c.setPlanner(p);
+                        break;
+                    }
+                }
+            }
+        }
         // campaigns - planner managers
+        for(Campaign c : campaigns){
+            if(c.getPlanner() == null){
+                for(CommunicationPlannerManager p : communicationPlannerManagers){
+                    if(c.getPlannerId().equals(p.getId())) {
+                        p.getCampaigns().add(c);
+                        c.setPlanner(new CommunicationPlanner(p, p.getCampaignsIds(), ""));
+                        break;
+                    }
+                }
+            }
+        }
 
         // campaigns - traffics
-
-        // campaigns - traffic managers
-
-        // campaigns - plans
-
-        // campaigns - clients
-
-        // campaigns - designers
-
-        // campaigns - accountants
-
-        // clients - company
-
-        // planners - managers
-
-        // traffics - traffics managers
+        for(Campaign c : campaigns){
+            if(c.getTrafficId() != null && c.getTraffic() == null){
+                for(Traffic t : traffics){
+                    if(c.getTrafficId().equals(t.getId())) {
+                        t.getCampaigns().add(c);
+                        c.setTraffic(t);
+                        break;
+                    }
+                }
+            }
+        }
 
         // traffics - traffics AIO
+
+        for(Campaign c : campaigns){
+            if(c.getTrafficId() != null && c.getTraffic() == null){
+                for(TrafficAIO t : trafficsAIO){
+                    if(c.getTrafficId().equals(t.getId())) {
+                        t.getCampaigns().add(c);
+                        c.setTraffic(new Traffic(t));
+                        break;
+                    }
+                }
+            }
+        }
+
+        // campaigns - plans
+        for(Campaign c : campaigns){
+            if(c.getPlanId() != null && c.getPlan() == null){
+                for(Plan p : plans){
+                    if(c.getPlanId().equals(p.getId())) {
+                        p.setCampaign(c);
+                        c.setPlan(p);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // campaigns - clients
+        for(Campaign c : campaigns){
+            if(c.getClientId() != null && c.getClient() == null){
+                for(Client cl : clients){
+                    if(c.getClientId().equals(cl.getId())) {
+                        c.setClient(cl);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // campaigns - designers
+        for(Campaign c : campaigns){
+            if(c.getDesignerId() != null && c.getDesigner() == null){
+                for(Designer d : designers){
+                    if(c.getDesignerId().equals(d.getId())) {
+                        c.setDesigner(d);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // campaigns - accountants
+        for(Campaign c : campaigns){
+            if(c.getAccountantId() != null && c.getAccountant() == null){
+                for(Accountant a : accountants){
+                    if(c.getAccountantId().equals(a.getId())) {
+                        c.setAccountant(a);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // clients - company
+        for(Client c : clients){
+            if(c.getCompanyId() != null && c.getCompany() == null){
+                for(Company co : companies){
+                    if(c.getCompanyId().equals(co.getId())){
+                        c.setCompany(co);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // planners - managers
+        for(CommunicationPlanner c : communicationPlanners){
+            if(c.getManagerId() != null && c.getManager() == null){
+                for(CommunicationPlannerManager m : communicationPlannerManagers){
+                    if(c.getManagerId().equals(m.getId())){
+                        c.setManager(m);
+                        m.getSubordinatesIds().add(c.getId());
+                        m.getSubordinates().add(c);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // traffics - traffics managers
+        for(Traffic t : traffics){
+            if(t.getManagerId() != null && t.getManager() == null){
+                for(TrafficManager m : trafficManagers){
+                    if(t.getManagerId().equals(m.getId())){
+                        t.setManager(m);
+                        m.getSubordinatesIds().add(t.getId());
+                        m.getSubordinates().add(t);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // traffics - traffics AIO
+        for(Traffic t : traffics){
+            if(t.getManagerId() != null && t.getManager() == null){
+                for(TrafficAIO m : trafficsAIO){
+                    if(t.getManagerId().equals(m.getId())){
+                        t.setManager(m);
+                        m.getSubordinatesIds().add(t.getId());
+                        m.getSubordinates().add(t);
+                        break;
+                    }
+                }
+            }
+        }
         
     }
 
@@ -135,7 +266,7 @@ public class Util {
         Save.saveTraffics();
         Save.saveAccountants();
         Save.saveCommunicationPlannerManagers();
-        CommunicationPlannerManager.setAnnualBonus(1.0);
+        CommunicationPlannerManager.setAnnualBonus(CommunicationPlannerManager.getAnnualBonus());
         Save.saveAnnualBonuses();
         Save.saveCampaigns();
         Save.savePlans();
@@ -319,7 +450,7 @@ public class Util {
     public static List<CommunicationPlanner> getSubordinatesByManager(CommunicationPlannerManager cpm) {
         List<CommunicationPlanner> result = new ArrayList<>();
 
-        for (CommunicationPlanner communicationPlanner : cpm.getSubordinates()) result.add(getCommunicationPlannerById(id));
+        for (CommunicationPlanner communicationPlanner : cpm.getSubordinates()) result.add(getCommunicationPlannerById(cpm.getId()));
 
         return result;
     }

@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import pl.pjatk.mas.s24512.masproject.Models.enums.RoleType;
 
 import java.io.IOException;
@@ -58,6 +57,7 @@ public class LoginController implements Initializable {
             return;
         }
         Util.LOGGED_ON_ROLE = Util.getRoleById(loggedOnId);
+        Util.LOGGED_ON_EMPLOYEE = Util.getEmployeeById(loggedOnId);
 
         changeView(event);
     }

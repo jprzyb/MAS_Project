@@ -34,6 +34,7 @@ public class CommunicationPlanner extends Employee {
         this.campaignsIds = new ArrayList<>();
         this.campaignsIds.addAll(campaignsIds);
         this.managerId = managerId;
+        this.campaigns = new ArrayList<>();
     }
 
     /**
@@ -55,8 +56,9 @@ public class CommunicationPlanner extends Employee {
      *
      * @param campaignId ID of the campaign to add
      */
-    public void addCampaign(String campaignId) {
-        campaignsIds.add(campaignId);
+    public void addCampaign(Campaign campaign) {
+        campaigns.add(campaign);
+        campaignsIds.add(campaign.getId());
     }
 
     /**
@@ -93,5 +95,9 @@ public class CommunicationPlanner extends Employee {
     public void setManager(CommunicationPlannerManager communicationPlannerManager) {
         this.manager = communicationPlannerManager;
         this.managerId = communicationPlannerManager.getId();
+    }
+
+    public CommunicationPlannerManager getManager() {
+        return  manager;
     }
 }

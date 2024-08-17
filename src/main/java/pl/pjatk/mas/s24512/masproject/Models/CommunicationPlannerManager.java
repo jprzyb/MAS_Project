@@ -36,6 +36,8 @@ public class CommunicationPlannerManager extends Employee {
         this.campaignsIds.addAll(campaignsIds);
         this.subordinatesIds = new ArrayList<>();
         this.subordinatesIds.addAll(subordinatesIds);
+        this.campaigns = new ArrayList<>();
+        this.subordinates = new ArrayList<>();
     }
 
     /**
@@ -59,6 +61,7 @@ public class CommunicationPlannerManager extends Employee {
      */
     public static void setAnnualBonus(double annualBonus) {
         ANNUAL_BONUS = annualBonus;
+//        System.out.println("CPM 64 " + ANNUAL_BONUS);
     }
 
     /**
@@ -143,4 +146,17 @@ public class CommunicationPlannerManager extends Employee {
     public List<CommunicationPlanner> getSubordinates() {
         return subordinates;
     }
+
+    public List<Campaign> getCampaigns() {
+        return campaigns;
+    }
+
+    public void setCampaigns(List<Campaign> campaigns) {
+        this.campaigns = campaigns;
+    }
+
+    public void setSubordinates(List<CommunicationPlanner> subordinates) {
+        this.subordinates = subordinates;
+    }
+
 }

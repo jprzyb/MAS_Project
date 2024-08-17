@@ -34,6 +34,7 @@ public class TrafficManager extends Employee {
         super(id, firstName, lastName, login, password, birthDate, employmentDate, salary, educationLevel);
         this.subordinatesIds = new ArrayList<>();
         this.subordinatesIds.addAll(subordinatesIds);
+        this.subordinates = new ArrayList<>();
     }
 
     /**
@@ -102,5 +103,9 @@ public class TrafficManager extends Employee {
      */
     public void setSubordinateSalary(Traffic subordinate, double salary) {
         subordinate.setSalary(salary);
+    }
+
+    public List<Traffic> getSubordinates() {
+        return subordinates;
     }
 }

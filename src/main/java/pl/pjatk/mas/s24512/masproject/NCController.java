@@ -118,6 +118,7 @@ public class NCController implements Initializable {
 
             Util.campaigns.add(campaign);
             Util.plans.add(plan);
+            Util.associate();
             onCancelButtonClick(event);
         } else {
             infoLabel.setText(validationResult);

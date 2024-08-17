@@ -31,6 +31,7 @@ public class TrafficAIO extends TrafficManager implements ITraffic {
         super(id, firstName, lastName, login, password, birthDate, employmentDate, salary, educationLevel, subordinatesIds);
         this.campaignIds = new ArrayList<>();
         this.campaignIds.addAll(campaignIds);
+        this.campaigns = new ArrayList<>();
     }
 
     /**
@@ -54,10 +55,21 @@ public class TrafficAIO extends TrafficManager implements ITraffic {
     /**
      * Adds a campaign ID to the list managed by this AI-driven Traffic Manager, if not already present.
      *
-     * @param campaignId The campaign ID to add
+     * @param campaign campaign to add
      */
-    public void addCamaignId(String campaignId){
-        if(!campaignIds.contains(campaignId)) campaignIds.add(campaignId);
+    public void addCamaignId(Campaign campaign){
+        if(!campaignIds.contains(campaign.getId())) {
+            campaignIds.add(campaign.getId());
+            campaigns.add(campaign);
+        }
+    }
+
+    public List<Campaign> getCampaigns() {
+        return campaigns;
+    }
+
+    public void setCampaigns(List<Campaign> campaigns) {
+        this.campaigns = campaigns;
     }
 
     /**

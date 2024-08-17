@@ -36,6 +36,7 @@ public class Company {
         this.isRegular = isRegular;
         this.subordinatesIds = new ArrayList<>();
         this.subordinatesIds.addAll(subordinatesIds);
+        this.subordinates = new ArrayList<>();
     }
 
     /**

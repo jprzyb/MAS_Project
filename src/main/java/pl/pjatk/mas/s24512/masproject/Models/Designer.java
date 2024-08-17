@@ -33,6 +33,7 @@ public class Designer extends Employee {
         super(id, firstName, lastName, login, password, birthDate, employmentDate, salary, educationLevel);
         this.campaignsId = new ArrayList<>();
         this.campaignsId.addAll(campaignsId);
+        this.campaigns = new ArrayList<>();
     }
 
     /**

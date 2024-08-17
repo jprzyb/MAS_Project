@@ -81,6 +81,10 @@ public class Client {
         return companyId;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
     /**
      * Setter for the companyId.
      * Ensures the client is removed from the old company and added to the new company.
@@ -92,6 +96,7 @@ public class Client {
         // Set the new company ID
         this.companyId = company.getId();
     }
+
 
     @Override
     public String toString() {

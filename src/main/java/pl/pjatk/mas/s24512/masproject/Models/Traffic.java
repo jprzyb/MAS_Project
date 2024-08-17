@@ -32,10 +32,18 @@ public class Traffic extends Employee implements ITraffic {
      */
     public Traffic(String id, String firstName, String lastName, String login, String password, Date birthDate, Date employmentDate, double salary, EducationLevel educationLevel, List<String> campaignIds, String managerId) {
         super(id, firstName, lastName, login, password, birthDate, employmentDate, salary, educationLevel);
-        campaigns = new ArrayList<>();
         this.campaignIds = new ArrayList<>();
         this.campaignIds.addAll(campaignIds);
         this.managerId = managerId;
+        this.campaigns = new ArrayList<>();
+    }
+
+    public Traffic(TrafficAIO trafficAIO){
+        super(trafficAIO.getId(), trafficAIO.getFirstName(), trafficAIO.getLastName(), trafficAIO.getLogin(), trafficAIO.getPassword(), trafficAIO.getBirthDate(), trafficAIO.getEmploymentDate(), trafficAIO.getSalary(), trafficAIO.getEducationLevel());
+        campaigns = new ArrayList<>();
+        this.campaignIds = trafficAIO.getCampaignIds();
+        this.managerId = "";
+        this.campaigns = trafficAIO.getCampaigns();
     }
 
     /**
@@ -86,5 +94,9 @@ public class Traffic extends Employee implements ITraffic {
         this.manager = manager;
         this.managerId = manager.getId();
         manager.addSubordinate(this);
+    }
+
+    public TrafficManager getManager() {
+        return manager;
     }
 }
