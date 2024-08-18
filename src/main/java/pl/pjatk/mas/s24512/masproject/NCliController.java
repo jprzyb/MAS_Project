@@ -98,6 +98,7 @@ public class NCliController implements Initializable {
                         new Client(idField.getText(), firstNameField.getText(), lastNameField.getText(), emailAddresField.getText(), phoneNumberField.getText(), comapnyChoiceBox.getSelectionModel().getSelectedItem().getId())
                 );
             }
+            Util.associate();
             onCancelButtonClick(event);
         } else {
             infoLabel.setText(validation);
