@@ -54,7 +54,7 @@ public class CommunicationPlanner extends Employee {
     /**
      * Adds a campaign ID to the list of campaigns managed by the planner.
      *
-     * @param campaignId ID of the campaign to add
+     * @param campaign of the campaign to add
      */
     public void addCampaign(Campaign campaign) {
         campaigns.add(campaign);

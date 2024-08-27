@@ -204,13 +204,13 @@ public class Campaign {
     }
 
     public void setPlanner(CommunicationPlanner planner) {
-        if(this.planner != null){
             if(!this.planner.equals(planner) ){
                 this.planner.getCampaigns().remove(this);
                 this.planner = planner;
-                planner.getCampaigns().add(this);
+                this.plannerId = planner.getId();
+
+                planner.addCampaign(this);
             }
-        }
     }
 
     public Traffic getTraffic() {
