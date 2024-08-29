@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="new" uuid="f0c28b27-9df7-4459-87cb-7b8cf197be26">
-      <driver-ref>sqlserver.jtds</driver-ref>
+    <data-source source="LOCAL" name="@localhost" uuid="f90106ce-3017-4242-b79f-e6100b1c79af">
+      <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>net.sourceforge.jtds.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:jtds:sqlserver://KUBUS</jdbc-url>
-      <jdbc-additional-properties>
-        <property name="com.intellij.clouds.kubernetes.db.host.port" />
-        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
-        <property name="com.intellij.clouds.kubernetes.db.resource.type" value="Deployment" />
-        <property name="com.intellij.clouds.kubernetes.db.container.port" />
-      </jdbc-additional-properties>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://localhost</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

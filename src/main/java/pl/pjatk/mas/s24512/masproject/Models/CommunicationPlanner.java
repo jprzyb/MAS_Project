@@ -57,8 +57,10 @@ public class CommunicationPlanner extends Employee {
      * @param campaign of the campaign to add
      */
     public void addCampaign(Campaign campaign) {
-        campaigns.add(campaign);
-        campaignsIds.add(campaign.getId());
+        if(!campaigns.contains(campaign)){
+            campaigns.add(campaign);
+            campaignsIds.add(campaign.getId());
+        }
     }
 
     /**
